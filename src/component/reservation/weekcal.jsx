@@ -83,7 +83,14 @@ function Weekcal({ onDateClick }) {
             key={index}
             className={`daylistSector ${
               calendar.day === today ? "today" : ""
-            } ${clicked ? "clicked" : ""}`}
+            } ${
+              selectedDate ===
+              `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${
+                calendar.day
+              }일 (${calendar.weak})`
+                ? "clicked"
+                : ""
+            }`}
             onClick={() => handleDateClick(calendar.day, calendar.weak)}
           >
             <div
