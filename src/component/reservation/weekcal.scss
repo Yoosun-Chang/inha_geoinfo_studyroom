@@ -1,0 +1,114 @@
+/* WeekCalendar.scss */
+
+/* 공통 스타일 */
+$deepblue: #156fb9;
+$darkblue: rgb(12, 86, 129);
+
+/* 주간 캘린더 스타일 */
+.Calendar {
+  width: 100%;
+  height: 15.8125rem;
+  flex-shrink: 0;
+  border-radius: 0rem 0rem 2.5rem 2.5rem;
+  background: linear-gradient(125deg, #0089ff -0.02%, #5cccff 127.1%);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04),
+    0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 10px 20px 0px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //justify-content: space-between;
+  text-align: center;
+}
+
+.Year-MonthList {
+  font-family: "Nunito";
+  //font-style: italic;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.Month {
+  font-size: 1.55rem;
+}
+
+/* 달력 요일과 날짜 스타일 */
+.DayList {
+  display: flex;
+  //flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.daylistSector {
+  width: 1rem; /* 100% / 7 요일 수에 따라 나눈 값 (간격 포함) */
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2.5rem;
+  //padding: .625rem;
+  margin: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.2); /* 달력 셀 배경 색상 */
+}
+
+.daylistSector:hover {
+  background: #224861;
+  color: white;
+}
+
+.daylistSector.clicked {
+  background: #224861 !important;
+  color: white !important;
+}
+
+.daylistSector:nth-child(1) {
+  border: 0.04em solid $darkblue;
+}
+
+.weak {
+  font-family: "Nanum Myeongjo";
+  font-size: 0.8em;
+  color: #fff;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.Sun {
+  color: red !important;
+}
+
+.Sat {
+  color: $deepblue !important;
+}
+
+.day {
+  font-weight: bold;
+}
+
+/* 버튼 스타일 */
+.CalendarIconContainer {
+  display: none;
+}
+
+/* 모든 화면 크기에 대한 스타일 */
+.daylistSector {
+  width: calc(100% / 7); /* 100% / 7 요일 수에 따라 나눈 값 */
+}
+
+.CalendarIconContainer {
+  display: block;
+}
+
+.SelectedDate {
+  font-family: "Nanum Myeongjo";
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  margin-top: 5px;
+}
