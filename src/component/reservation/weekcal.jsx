@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './weekcal.scss'; // 주어진 CSS 파일을 불러옵니다.
+import React, { useState } from "react";
+import "./weekcal.scss"; // 주어진 CSS 파일을 불러옵니다.
 
 function Weekcal({ onDateClick }) {
   const now = new Date();
@@ -55,20 +55,26 @@ function Weekcal({ onDateClick }) {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateClick = (day, weak) => {
-    const selectedDateString = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${day}일 (${weak})`;
-    
+    const selectedDateString = `${now.getFullYear()}년 ${
+      now.getMonth() + 1
+    }월 ${day}일 (${weak})`;
+
+    // 클릭 상태를 토글합니다.
+    setClicked(!clicked);
+
     // 상위 컴포넌트로 클릭된 날짜를 전달
     onDateClick(selectedDateString);
     setSelectedDate(selectedDateString);
   };
 
+  //선재 작업 내용
+  const [clicked, setClicked] = useState(false);
+
   return (
     <div className="Calendar">
       <div className="Year-MonthList">
         <p>
-          <span className="Month">
-            예약하기
-          </span>
+          <span className="Month">예약하기</span>
         </p>
       </div>
       <div className="DayList">
@@ -76,13 +82,20 @@ function Weekcal({ onDateClick }) {
           <div
             key={index}
             className={`daylistSector ${
-              calendar.day === today ? 'today' : ''
+              calendar.day === today ? "today" : ""
+            } ${
+              selectedDate ===
+              `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${
+                calendar.day
+              }일 (${calendar.weak})`
+                ? "clicked"
+                : ""
             }`}
             onClick={() => handleDateClick(calendar.day, calendar.weak)}
           >
             <div
-              className={`weak ${calendar.weak === 'Sun' ? 'Sun' : ''} ${
-                calendar.weak === 'Sat' ? 'Sat' : ''
+              className={`weak ${calendar.weak === "Sun" ? "Sun" : ""} ${
+                calendar.weak === "Sat" ? "Sat" : ""
               }`}
             >
               {calendar.weak}
@@ -91,11 +104,7 @@ function Weekcal({ onDateClick }) {
           </div>
         ))}
       </div>
-      {selectedDate && (
-        <div className="SelectedDate">
-          {selectedDate}
-        </div>
-      )}
+      {selectedDate && <div className="SelectedDate">{selectedDate}</div>}
     </div>
   );
 }
