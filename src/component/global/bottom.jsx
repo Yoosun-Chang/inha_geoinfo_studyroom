@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import bottomImage from './Bottom.jpg'; // 이미지 파일 경로를 적절히 수정하세요
+import bottomVideo from './Bottom2.mp4'; // 비디오 파일 경로로 수정하세요
 
-// 반응형 이미지 스타일 컴포넌트
-const ResponsiveImage = styled.img`
+const ResponsiveVideo = styled.video`
   max-width: 100%;
   height: auto;
+  border:none;
 `;
 
 const CenteredContainer = styled.div`
@@ -17,24 +17,22 @@ const CenteredContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  height: 10vh;
-  max-height: 50px;
-  width: 100vw;
+  max-height: 100%; /* 화면 높이에 맞추기 위해 max-height로 변경 */
+  width: 100%;
   z-index: 100;
 `;
 
+
 const Text = styled.div`
   font-family: 'Nunito', sans-serif;
-  font-size: .5rem;
+  font-size: 0.5rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   position: absolute;
   color: #FFF;
   left: 10px;
-  top: 10px; /* 위에 약간의 여백 추가 */
-
-  /* 세로 정렬을 위해 추가 */
+  top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,14 +40,15 @@ const Text = styled.div`
   white-space: pre-wrap;
 `;
 
-
-
 function Bottom() {
   return (
     <CenteredContainer>
-      <ResponsiveImage src={bottomImage} alt="Bottom Image" />
+      <ResponsiveVideo autoPlay loop muted>
+        <source src={bottomVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </ResponsiveVideo>
       <Text>
-        Developed By 19 홍진욱, 20 장유선<br />
+        Developed By 19 홍진욱, 20 장유선, 20 최효리<br />
         Contact @inha_gonggan Copyright © geoinformatic All Rights Reserved.
       </Text>
     </CenteredContainer>

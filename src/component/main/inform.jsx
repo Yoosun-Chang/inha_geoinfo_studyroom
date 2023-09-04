@@ -35,7 +35,7 @@ function Infrom() {
     <Container>
       <LogoImage src={logoImage} alt="School Logo" />
       <Text>
-        공간정보공학과 스터디룸 예약
+        공간정보공학과<br/> 스터디룸 예약
       </Text>
     </Container>
   );
