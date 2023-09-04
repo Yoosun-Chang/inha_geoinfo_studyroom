@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import ConfirmButton from './confirmbtn';
 
 function Btime() {
-  // 클릭된 시간대를 관리하는 상태
   const [selectedTimes, setSelectedTimes] = useState([]);
 
-  // 시간대 목록
+  // 시간대 목록 수정해야함
   const timeSlots = [
     '9:00 am', '10:00 am', '11:00 am', '12:00 am',
     '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm',
     '5:00 pm', '6:00 pm', '7:00 pm', '8:00 pm',
-    '9:00 pm', '10:00 pm', '11:00 pm', '12:00 am',
+    '9:00 pm', '10:00 pm', '11:00 pm', '12:00 pm',
     '1:00 am', '2:00 am', '3:00 am', '4:00 am',
     '5:00 am', '6:00 am', '7:00 am', '8:00 am',
   ];
@@ -30,7 +30,6 @@ function Btime() {
     }
   };
 
-  // 스타일 객체를 정의합니다.
   const buttonStyle = {
     width: '4.3125rem',
     height: '1.875rem',
@@ -45,7 +44,7 @@ function Btime() {
   const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* 버튼이 넘치면 줄 바꿈 */
+  flex-wrap: wrap;
 `;
 
 const Text = styled.div`
@@ -64,7 +63,7 @@ const Text = styled.div`
 
   return (
     <div className="time-container">
-        <Text>예약 가능 시간 </Text>
+        
         <BtnContainer>
       {timeSlots.map((time, index) => (
         <button
@@ -79,6 +78,7 @@ const Text = styled.div`
         </button>
       ))}
       </BtnContainer>
+      <ConfirmButton/>
     </div>
   );
 }

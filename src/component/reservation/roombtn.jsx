@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Btime from './btime.jsx'; // Btime 컴포넌트를 불러옵니다.
+import Btime from './btime.jsx'; 
+import Ctime from './ctime.jsx';
 
 function CRoomBtn() {
   // Button state management
@@ -20,8 +21,8 @@ function CRoomBtn() {
 
   // Button styles
   const buttonStyle = {
-    width: '139px',
-    height: '45px',
+    width: '8.6875rem',
+    height: '2.8125rem',
     flexShrink: 0,
     borderRadius: '50px',
     background: 'linear-gradient(180deg, #0AF 0%, #78D2FF 100%)',
@@ -29,7 +30,8 @@ function CRoomBtn() {
     border: 'none',
     color: 'white',
     fontSize: '16px',
-    margin: '2rem'
+    margin: '1rem',
+    display : 'inline-block'
   };
 
   // 색상을 선택된 버튼에 따라 조절
@@ -47,6 +49,7 @@ function CRoomBtn() {
 
       {/* B룸 버튼을 클릭했을 때 btime 컴포넌트를 표시 */}
       {isBClicked && <Btime />}
+      {isCClicked && <Ctime />}
     </div>
   );
 }
