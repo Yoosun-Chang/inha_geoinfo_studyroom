@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import logoImage from "./SchoolLogo.png"; // 이미지 파일 경로를 적절히 수정하세요
 import "./input.css";
-
 import Swal from "sweetalert2/src/sweetalert2.js";
+import Wave from "../Wave.jsx";
+import Top from "../top.jsx";
 // 로고 이미지 스타일 컴포넌트
 const LogoImage = styled.img`
   width: 6.25rem;
@@ -32,15 +33,16 @@ const Container = styled.div`
   justify-content: space-evenly;
 `;
 const Div = styled.div`
-  margin-top: 20%;
+  margin-top: 15%;
 `;
+
 const ID = styled.input`
   margin-top: 5%;
   background-color: rgba(0, 176, 255, 1);
   width: 70%;
   margin-left: 15%;
   border: none;
-  height: 3vh;
+  height: 2rem;
   /* Rectangle 85 */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
@@ -50,19 +52,25 @@ const Help = styled.div`
   color: #00b0ff;
   font-size: smaller;
   margin-left: 65vw;
-  padding-top: 4%;
+  padding-top: 5%;
   font-weight: bold;
+  padding-bottom: 7.3%;
 `;
 const Button = styled.button`
   position: absolute;
   width: 30%;
-  height: 5vh;
+  height: 3rem;
   background: #0089ff;
   border-radius: 40px;
   color: white;
   border: none;
-  margin-top: 10%;
+  margin-top: 7%;
   margin-left: 35%;
+`;
+
+const WaveContainer = styled.div`
+  position: relative;
+  margin-top: 15vh; /* 로그인 버튼과의 간격을 늘림 */
 `;
 function Infrom() {
   const Swal = require("sweetalert2");
@@ -77,6 +85,7 @@ function Infrom() {
   };
   return (
     <>
+      <Top />
       <Container>
         <LogoImage src={logoImage} alt="School Logo" />
         <Text>
@@ -90,6 +99,8 @@ function Infrom() {
         <Help onClick={handleClick}>로그인 불가</Help>
       </Div>
       <Button>로그인</Button>
+      <WaveContainer></WaveContainer>
+      <Wave></Wave>
     </>
   );
 }
