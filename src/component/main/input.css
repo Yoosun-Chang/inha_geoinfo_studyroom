@@ -1,0 +1,19 @@
+input::placeholder {
+  color: #ffffff;
+}
+input::-webkit-input-placeholder {
+  color: rgb(255, 255, 255) fff;
+}
+input:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+textarea::placeholder {
+  color: #ffffff;
+}
+textarea::-webkit-input-placeholder {
+  color: #ffffff;
+}
+textarea:-ms-input-placeholder {
+  color: #ffffff;
+}
