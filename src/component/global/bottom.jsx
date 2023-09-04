@@ -17,7 +17,7 @@ const CenteredContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 100%; /* 화면 높이에 맞추기 위해 max-height로 변경 */
+  max-height: 100%; 
   width: 100%;
   z-index: 100;
 `;
