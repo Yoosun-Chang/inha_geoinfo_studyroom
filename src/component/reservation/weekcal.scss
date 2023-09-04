@@ -9,9 +9,10 @@ $darkblue: rgb(12, 86, 129);
   width: 100%;
   height: 15.8125rem;
   flex-shrink: 0;
-  border-radius: 0rem 0rem 2.5rem 2.5rem ;
-  background: linear-gradient(125deg, #0089FF -0.02%, #5CCCFF 127.1%);
-  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 10px 20px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 0rem 0rem 2.5rem 2.5rem;
+  background: linear-gradient(125deg, #0089ff -0.02%, #5cccff 127.1%);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04),
+    0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 10px 20px 0px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +33,6 @@ $darkblue: rgb(12, 86, 129);
 
 .Month {
   font-size: 1.55rem;
-
 }
 
 /* 달력 요일과 날짜 스타일 */
@@ -53,7 +53,7 @@ $darkblue: rgb(12, 86, 129);
   cursor: pointer;
   border-radius: 2.5rem;
   //padding: .625rem;
-  margin: .5rem;
+  margin: 0.5rem;
   background-color: rgba(255, 255, 255, 0.2); /* 달력 셀 배경 색상 */
 }
 
@@ -62,7 +62,12 @@ $darkblue: rgb(12, 86, 129);
   color: white;
 }
 
-.daylistSector.selected {
+// .daylistSector.selected {
+//   background: #224861 !important;
+//   color: white !important;
+// }
+
+.daylistSector.clicked {
   background: #224861 !important;
   color: white !important;
 }
