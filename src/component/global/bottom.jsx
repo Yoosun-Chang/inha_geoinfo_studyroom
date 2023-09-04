@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import bottomVideo from './Bottom2.mp4'; // 비디오 파일 경로로 수정하세요
+import bottomVideo from './Bottom2.mp4'; 
 
 const ResponsiveVideo = styled.video`
   max-width: 100%;
   height: auto;
-  border:none;
+  border:10px solid white;
 `;
 
 const CenteredContainer = styled.div`
@@ -31,8 +31,8 @@ const Text = styled.div`
   line-height: normal;
   position: absolute;
   color: #FFF;
-  left: 10px;
-  top: 10px;
+  left: 0.5rem;
+  top: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +45,6 @@ function Bottom() {
     <CenteredContainer>
       <ResponsiveVideo autoPlay loop muted>
         <source src={bottomVideo} type="video/mp4" />
-        Your browser does not support the video tag.
       </ResponsiveVideo>
       <Text>
         Developed By 19 홍진욱, 20 장유선, 20 최효리<br />
