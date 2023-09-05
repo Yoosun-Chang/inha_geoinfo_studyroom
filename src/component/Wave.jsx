@@ -13,7 +13,7 @@ const CenteredContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -39,7 +39,6 @@ const Text = styled.div`
   z-index: 1000; /* 적절한 z-index 값으로 변경 */
 `;
 
-
 function Bottom() {
   return (
     <CenteredContainer>
@@ -50,7 +49,7 @@ function Bottom() {
         Developed By 19 홍진욱, 20 장유선, 20 최효리
         <br />
         Contact @inha_gonggan Copyright © geoinformatic All Rights Reserved.
-      </Text> 
+      </Text>
     </CenteredContainer>
   );
 }
