@@ -29,12 +29,6 @@ const Menu = styled.div`
     letter-spacing: 0.6px;
 `;
 
-const ExitMenu = styled.span`
-  position: absolute;
-  bottom: 26px;
-  font-size: 0.8rem;
-`;
-
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
 

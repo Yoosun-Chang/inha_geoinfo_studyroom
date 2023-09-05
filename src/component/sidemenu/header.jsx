@@ -22,7 +22,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSide = () => {
-    setIsOpen(!isOpen); // isOpen의 값을 토글합니다.
+    setIsOpen(!isOpen); 
   };
 
   return (
