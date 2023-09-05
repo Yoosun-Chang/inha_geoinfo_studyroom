@@ -68,7 +68,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         }}
         onClick={toggleSide}
       >
-        X
+        
       </div>
       <ul>
         <Menu>12201321 장유선</Menu>

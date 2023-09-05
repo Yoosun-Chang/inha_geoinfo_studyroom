@@ -32,7 +32,7 @@ function Btime() {
     } else {
       // 선택되지 않은 시간대면 선택
       // 최대 2개까지 선택할 수 있도록 제한
-      if (selectedTimes.length < 2) {
+      if (selectedTimes.length < 4) {
         setSelectedTimes([...selectedTimes, time]);
       }
     }
