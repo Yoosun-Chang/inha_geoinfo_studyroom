@@ -4,9 +4,22 @@ import Weekcal from '../component/reservation/weekcal';
 import RoomBtn from '../component/reservation/roombtn';
 import NotAvailable from '../component/reservation/notavailable';
 import ConfirmButton from '../component/reservation/confirmbtn';
+import Header from '../component/sidemenu/header';
 
 const Container = styled.div`
-  text-align: center
+  text-align: center;
+`;
+
+const HeaderAndWeekcalContainer = styled.div`
+  position: relative; /* 상대 위치 설정 */
+`;
+
+const HeaderOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1; /* 겹쳐진 요소 위로 표시 */
 `;
 
 function Reservation() {
@@ -52,7 +65,12 @@ function Reservation() {
 
   return (
     <div>
-      <Weekcal onDateClick={handleDateClick} />
+      <HeaderAndWeekcalContainer>
+        <HeaderOverlay>
+          <Header />
+        </HeaderOverlay>
+        <Weekcal onDateClick={handleDateClick}></Weekcal>
+      </HeaderAndWeekcalContainer>
       {selectedDate && (
         <div>
           {isToday(selectedDate) && (
@@ -70,7 +88,7 @@ function Reservation() {
             </div>
           )}
           {!isReservationAvailable(selectedDate) && (
-            < NotAvailable />
+            <NotAvailable />
           )}
           <div className="SelectedDate">
             {selectedDate}
