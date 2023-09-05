@@ -13,7 +13,7 @@ const CenteredContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
-  /* position: fixed; */
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
