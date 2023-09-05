@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Weekcal from '../component/reservation/weekcal';
 import RoomBtn from '../component/reservation/roombtn';
@@ -11,10 +11,23 @@ const Container = styled.div`
 
 function Reservation() {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isTomorrowButtonEnabled, setIsTomorrowButtonEnabled] = useState(false);
 
   const handleDateClick = (selectedDateString) => {
     setSelectedDate(selectedDateString);
   };
+
+  useEffect(() => {
+    // 현재 시간을 얻습니다.
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // 현재 시간이 21시 이후인지 확인합니다.
+    const isAfter21Hours = currentHour >= 21;
+
+    // 21시 이후이면 내일 버튼을 활성화합니다.
+    setIsTomorrowButtonEnabled(isAfter21Hours);
+  }, []);
 
   function isToday(dateString) {
     const now = new Date();
@@ -34,7 +47,7 @@ function Reservation() {
   function isReservationAvailable(dateString) {
     const today = isToday(dateString);
     const tomorrow = isTomorrow(dateString);
-    return today || tomorrow;
+    return today || (isTomorrowButtonEnabled && tomorrow);
   }
 
   return (
@@ -49,7 +62,7 @@ function Reservation() {
               </Container>
             </div>
           )}
-          {isTomorrow(selectedDate) && (
+          {isTomorrow(selectedDate) && isTomorrowButtonEnabled && (
             <div>
               <Container>
                 <RoomBtn />

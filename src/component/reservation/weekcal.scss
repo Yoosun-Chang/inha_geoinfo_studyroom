@@ -67,7 +67,7 @@ $darkblue: rgb(12, 86, 129);
   color: white !important;
 }
 
-.daylistSector:nth-child(1) {
+.daylistSector.today {
   border: 0.04em solid $darkblue;
 }
 

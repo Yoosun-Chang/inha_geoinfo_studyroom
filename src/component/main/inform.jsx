@@ -77,8 +77,8 @@ function Infrom() {
   const handleClick = () => {
     // Swal.fire("Any fool can use a computer");
     Swal.fire({
-      title: "학과사무실로 <br/> 문의바랍니다.",
-      text: "032-860-7600",
+      title: "<데이터 미등록> <br/> 문의바랍니다.",
+      text: "설윤환 010-5335-1393",
       confirmButtonColor: "#3085d6",
       confirmButtonText: "확인",
     });
