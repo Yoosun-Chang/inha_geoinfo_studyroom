@@ -3,53 +3,33 @@ import "./weekcal.scss"; // 주어진 CSS 파일을 불러옵니다.
 
 function Weekcal({ onDateClick }) {
   const now = new Date();
-  const todayWeak = now.getDay();
-  const today = now.getDate();
-  const lastday = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  now.setHours(0, 0, 0, 0); // 현재 시간을 00:00:00으로 설정
+  const todayWeak = now.getDay(); // 오늘의 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+  const today = now.getDate(); // 오늘의 날짜
+  const lastday = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(); // 현재 월의 마지막 날짜
 
-  const getAlldate = (today, lastday) => {
-    let dates = [];
+  // 시작 요일을 항상 월요일로 설정
+  const startingDay = 1; // 월요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
 
-    dates[0] = today;
-    for (let i = 1; i <= 6; i++) {
-      today++;
-      if (today > lastday) {
-        today = 1;
-        dates[i] = today;
-      } else {
-        dates[i] = today;
-      }
-    }
+  // 오늘을 기준으로 해당 주의 첫 번째 날짜를 계산
+  const firstDateOfTheWeek = new Date(now);
+  const difference = todayWeak - startingDay;
+  firstDateOfTheWeek.setDate(today - difference);
 
-    return dates;
-  };
+  // 해당 주의 마지막 날짜를 계산
+  const lastDateOfTheWeek = new Date(firstDateOfTheWeek);
+  lastDateOfTheWeek.setDate(firstDateOfTheWeek.getDate() + 6);
 
-  const getAllweak = (todayWeak) => {
-    let strWeak = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    let weaklist = [];
-
-    weaklist[0] = strWeak[todayWeak];
-
-    for (let i = 1; i <= 6; i++) {
-      todayWeak++;
-      if (todayWeak > 6) {
-        todayWeak = 0;
-        weaklist[i] = strWeak[todayWeak];
-      } else {
-        weaklist[i] = strWeak[todayWeak];
-      }
-    }
-
-    return weaklist;
-  };
-
-  const CalendarDay = getAlldate(today, lastday);
-  const CalendarWeak = getAllweak(todayWeak);
-
-  const CalendarObject = CalendarDay.map((day, index) => ({
-    weak: CalendarWeak[index],
-    day,
-  }));
+  // 해당 주의 날짜와 요일을 배열에 저장
+  const CalendarObject = [];
+  for (let i = 0; i <= 6; i++) {
+    const date = new Date(firstDateOfTheWeek);
+    date.setDate(firstDateOfTheWeek.getDate() + i);
+    CalendarObject.push({
+      weak: date.toLocaleDateString("en-US", { weekday: "short" }), // 요일을 "Mon", "Tue", ... 형식으로 표시
+      day: date.getDate(),
+    });
+  }
 
   // 선택한 날짜와 요일을 상태로 관리합니다.
   const [selectedDate, setSelectedDate] = useState(null);
@@ -67,7 +47,7 @@ function Weekcal({ onDateClick }) {
     setSelectedDate(selectedDateString);
   };
 
-  //선재 작업 내용
+  // 선재 작업 내용
   const [clicked, setClicked] = useState(false);
 
   return (
