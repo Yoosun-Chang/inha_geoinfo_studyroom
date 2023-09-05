@@ -27,21 +27,18 @@ const CenteredContainer = styled.div`
 
 const Text = styled.div`
   font-family: "Nunito", sans-serif;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   position: absolute;
-  color: #ffffff;
-  left: 0.5rem;
-  top: 5rem;
+  color: white; /* 텍스트 색상 변경 */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
-  white-space: pre-wrap;
-  /* margin-top: 80%; */
+  z-index: 1000; /* 적절한 z-index 값으로 변경 */
 `;
+
 
 function Bottom() {
   return (
@@ -49,11 +46,11 @@ function Bottom() {
       <ResponsiveVideo autoPlay loop muted>
         <source src={bottomVideo} type="video/mp4" />
       </ResponsiveVideo>
-      {/* <Text>
+      <Text>
         Developed By 19 홍진욱, 20 장유선, 20 최효리
         <br />
         Contact @inha_gonggan Copyright © geoinformatic All Rights Reserved.
-      </Text> */}
+      </Text> 
     </CenteredContainer>
   );
 }
