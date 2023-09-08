@@ -39,7 +39,7 @@ function Btime() {
   };
 
   const buttonStyle = {
-    width: '4.3125rem',
+    width: '5.3125rem',
     height: '1.875rem',
     flexShrink: 0,
     borderRadius: '50px',
