@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SideBarWrap = styled.div`
   z-index: 15;
@@ -18,7 +19,7 @@ const SideBarWrap = styled.div`
   }
 `;
 
-const Menu = styled.div`
+const Menu1 = styled.div`
   margin: 40px 10px;
   color: #000;
     font-family: Nunito;
@@ -27,6 +28,54 @@ const Menu = styled.div`
     font-weight: 700;
     line-height: normal;
     letter-spacing: 0.6px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+`;
+
+const Menu2 = styled(Link)`
+  margin: 40px 10px;
+  color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+`;
+
+const Menu3 = styled(Link)`
+  margin: 40px 10px;
+  color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+`;
+
+const Menu4 = styled(Link)`
+  margin: 40px 10px;
+  color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
 `;
 
 function Sidebar({ isOpen, setIsOpen }) {
@@ -65,9 +114,10 @@ function Sidebar({ isOpen, setIsOpen }) {
         
       </div>
       <ul>
-        <Menu>12201321 장유선</Menu>
-        <Menu>예약확인</Menu>
-        <Menu>로그아웃</Menu>
+        <Menu1>12201321 장유선</Menu1>
+        <Menu2 to="/myreservation">예약확인</Menu2>
+        <Menu3 >로그아웃</Menu3>
+        <Menu4 to="/admin">관리자 페이지</Menu4>
       </ul>
     </SideBarWrap>
   );

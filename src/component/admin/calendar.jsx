@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 function Calendar() {
   const [date, setDate] = useState(new Date());
+  const [clickedButton, setClickedButton] = useState(null);
 
   const nowYear = date.getFullYear();
   const nowMon = date.getMonth() + 1;
@@ -20,9 +21,22 @@ function Calendar() {
     setDate(newDate);
   };
 
-  const handleDateClick = (day) => {
-    // 클릭한 날짜에 대한 처리를 여기에 추가
-    console.log(`Clicked on day ${day}`);
+  const handleDateClick = (day, event) => {
+    // 이전에 다른 버튼이 클릭되었는지 확인
+    if (clickedButton !== null) {
+      // 이전에 클릭된 버튼에서 'clicked' 클래스 제거
+      clickedButton.classList.remove('clicked');
+    }
+
+    // 새로 클릭한 버튼에 'clicked' 클래스 추가
+    const button = event.target;
+    button.classList.add('clicked');
+
+    // 현재 클릭된 버튼을 추적하기 위해 상태 업데이트
+    setClickedButton(button);
+
+    // 클릭된 날짜에 대한 처리
+    console.log(`${nowYear}년 ${nowMon}월 ${day}일 클릭!`);
   };
 
   function renderCalendar() {
@@ -41,7 +55,7 @@ function Calendar() {
     for (let day = 1; day <= daysInMonth; day++) {
       calendarRow.push(
         <td key={day}>
-          <button onClick={() => handleDateClick(day)}>{day}</button>
+          <button onClick={(event) => handleDateClick(day, event)}>{day}</button>
         </td>
       );
 
@@ -60,9 +74,9 @@ function Calendar() {
   }
 
   const Container = styled.div`
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #0089FF;
     border: none;
     font-size: 20px;
@@ -88,7 +102,7 @@ function Calendar() {
             <th>TUE</th>
             <th>WED</th>
             <th>THU</th>
-            <th>TRI</th>
+            <th>FRI</th>
             <th>SAT</th>
           </tr>
         </thead>
