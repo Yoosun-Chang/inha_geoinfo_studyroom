@@ -130,16 +130,17 @@ function Inform() {
         console.log(response.data); // 서버 응답을 콘솔에 출력
         console.log(response);
         console.log(response.data.token);
+
         if (response.status === 200) {
           // 로그인이 성공하면 reservation 페이지로 이동
+          localStorage.setItem("schoolnumber", response.data.schoolnumber);
+          localStorage.setItem("Name", response.data.name);
           navigate(`/reservation`);
         }
       })
       .catch((error) => {
         console.error("Axios 오류:", error);
       });
-    console.log(id);
-    console.log(Name);
   };
 
   return (
