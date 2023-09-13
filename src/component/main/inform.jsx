@@ -135,7 +135,7 @@ function Inform() {
           // 로그인이 성공하면 reservation 페이지로 이동
           localStorage.setItem("schoolnumber", response.data.schoolnumber);
           localStorage.setItem("Name", response.data.name);
-          navigate(`/reservation`);
+          navigate(`/reservation/${id}`);
         }
       })
       .catch((error) => {

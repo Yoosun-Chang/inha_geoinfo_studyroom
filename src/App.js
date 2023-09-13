@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/main" element={<Inform />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/reservation/:id" element={<Reservation />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/myreservation" element={<Myreservation />} />
