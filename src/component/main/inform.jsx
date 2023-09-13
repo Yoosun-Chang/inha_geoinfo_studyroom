@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import logoImage from "./SchoolLogo.png"; // 이미지 파일 경로를 적절히 수정하세요
 import "./input.css";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import Wave from "../Wave.jsx";
 import Top from "../top.jsx";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 // 로고 이미지 스타일 컴포넌트
 const LogoImage = styled.img`
   width: 6.25rem;
@@ -72,10 +76,14 @@ const WaveContainer = styled.div`
   position: relative;
   margin-top: 15vh; /* 로그인 버튼과의 간격을 늘림 */
 `;
-function Infrom() {
+
+function Inform() {
+  // CSRF 토큰 가져오기 (Django가 제공하는 쿠키에서 추출)
+  axios.defaults.xsrfHeaderName = "X-CSRFToken";
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.withCredentials = true;
   const Swal = require("sweetalert2");
   const handleClick = () => {
-    // Swal.fire("Any fool can use a computer");
     Swal.fire({
       title: "<데이터 미등록> <br/> 문의바랍니다.",
       text: "설윤환 010-5335-1393",
@@ -83,6 +91,57 @@ function Infrom() {
       confirmButtonText: "확인",
     });
   };
+  const [id, setid] = useState("");
+  const [Name, setName] = useState("");
+
+  const HandleId = (e) => {
+    setid(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const HandleName = (e) => {
+    setName(e.target.value);
+    console.log(e.target.value);
+  };
+  useEffect(() => {
+    // 페이지가 로드된 후에 실행될 코드
+    // CSRF 토큰 가져오기 (Django가 제공하는 쿠키에서 추출)
+    const csrfCookie = document.cookie || "";
+    const csrfToken = csrfCookie
+      .split("; ")
+      .find((row) => row.startsWith("csrftoken="))
+      ?.split("=")[1];
+
+    if (csrfToken) {
+      // Axios 설정에 CSRF 토큰 추가
+      axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
+    }
+  }, []); // 빈 배열을 전달하여 페이지가 처음 로드될 때만 실행
+
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 함수 가져오기
+
+  const HandleUser = () => {
+    axios
+      .post(`https://geostudyroom.store/login/`, {
+        schoolnumber: id,
+        password: Name,
+      })
+      .then((response) => {
+        console.log(response.data); // 서버 응답을 콘솔에 출력
+        console.log(response);
+        console.log(response.data.token);
+        if (response.status === 200) {
+          // 로그인이 성공하면 reservation 페이지로 이동
+          navigate(`/reservation`);
+        }
+      })
+      .catch((error) => {
+        console.error("Axios 오류:", error);
+      });
+    console.log(id);
+    console.log(Name);
+  };
+
   return (
     <>
       <Top />
@@ -94,15 +153,23 @@ function Infrom() {
         </Text>
       </Container>
       <Div>
-        <ID placeholder="이름을 입력하세요."></ID>
-        <ID placeholder="학번을 입력하세요."></ID>
+        <ID
+          placeholder="학번을 입력하세요."
+          value={id}
+          onChange={HandleId}
+        ></ID>
+        <ID
+          placeholder="이름을 입력하세요."
+          value={Name}
+          onChange={HandleName}
+        ></ID>
         <Help onClick={handleClick}>로그인 불가</Help>
       </Div>
-      <Button>로그인</Button>
+      <Button onClick={HandleUser}>로그인</Button>
       <WaveContainer></WaveContainer>
       <Wave></Wave>
     </>
   );
 }
 
-export default Infrom;
+export default Inform;
