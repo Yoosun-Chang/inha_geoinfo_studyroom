@@ -23,6 +23,7 @@ const CenteredContainer = styled.div`
   background: white;
   padding: 20px;
   border-radius: 5px;
+  color: black;
 `;
 
 const ConfirmButtonContainer = styled.div`
