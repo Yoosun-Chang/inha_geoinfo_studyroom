@@ -1,13 +1,14 @@
 import React from "react";
-import Top from "../component/top";
+import Top2 from "../component/top2";
 import List from "../component/myreservation/list";
 import Wave from "../component/Wave"
 
 function Myreservation() {
     return (
         <div>
-            <Top/>
+            <Top2/>
             <List />
+            
             <List />
             <List />
             <List />
