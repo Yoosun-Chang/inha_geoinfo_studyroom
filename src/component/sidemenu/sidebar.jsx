@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 
 const SideBarWrap = styled.div`
   z-index: 15;
@@ -22,73 +23,90 @@ const SideBarWrap = styled.div`
 const Menu1 = styled.div`
   margin: 40px 10px;
   color: #000;
-    font-family: Nunito;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.6px;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 const Menu2 = styled(Link)`
   margin: 40px 10px;
   color: #000;
-    font-family: Nunito;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.6px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 const Menu3 = styled(Link)`
   margin: 40px 10px;
   color: #000;
-    font-family: Nunito;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.6px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 const Menu4 = styled(Link)`
   margin: 40px 10px;
   color: #000;
-    font-family: Nunito;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.6px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
+  const [userData, setUserData] = useState({ schoolnumber: '', name: '' });
 
   useEffect(() => {
-    document.addEventListener('mousedown', handlerOutsie);
+    document.addEventListener('mousedown', handleOutside);
     return () => {
-      document.removeEventListener('mousedown', handlerOutsie);
+      document.removeEventListener('mousedown', handleOutside);
     };
   }, []);
 
-  const handlerOutsie = (e) => {
+  useEffect(() => {
+    const schoolNumber = localStorage.getItem('schoolnumber');
+    if (schoolNumber) {
+      // 예약 데이터를 가져오는 Axios 요청
+      axios
+        .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
+      .then(response => {
+        const { schoolnumber, name } = response.data[0].user;
+        setUserData({ schoolnumber, name });
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+    }
+  }, []);
+
+  const handleOutside = (e) => {
     if (!outside.current.contains(e.target)) {
       toggleSide();
     }
@@ -107,16 +125,16 @@ function Sidebar({ isOpen, setIsOpen }) {
           right: '12px',
           fontSize: '24px',
           cursor: 'pointer',
-          color:'#0089FF'
+          color: '#0089FF',
         }}
         onClick={toggleSide}
-      >
-        
-      </div>
+      ></div>
       <ul>
-        <Menu1>12201321 장유선</Menu1>
+        <Menu1>
+          {userData.schoolnumber} {userData.name}
+        </Menu1>
         <Menu2 to="/myreservation">예약확인</Menu2>
-        <Menu3 >로그아웃</Menu3>
+        <Menu3>로그아웃</Menu3>
         <Menu4 to="/admin">관리자 페이지</Menu4>
       </ul>
     </SideBarWrap>
