@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Weekcal from '../component/reservation/weekcal';
-import RoomBtn from '../component/reservation/roombtn';
-import NotAvailable from '../component/reservation/notavailable';
-import ConfirmButton from '../component/reservation/confirmbtn';
-import Header from '../component/sidemenu/header';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Weekcal from "../component/reservation/weekcal";
+import RoomBtn from "../component/reservation/roombtn";
+import NotAvailable from "../component/reservation/notavailable";
+import ConfirmButton from "../component/reservation/confirmbtn";
+import Header from "../component/sidemenu/header";
 
 const Container = styled.div`
   text-align: center;
@@ -45,7 +45,7 @@ function Reservation() {
   function isToday(dateString) {
     const now = new Date();
     const today = now.getDate();
-    const selectedDay = parseInt(dateString.split(' ')[2]);
+    const selectedDay = parseInt(dateString.split(" ")[2]);
     return selectedDay === today;
   }
 
@@ -53,7 +53,7 @@ function Reservation() {
     const now = new Date();
     const today = now.getDate();
     const tomorrow = today + 1;
-    const selectedDay = parseInt(dateString.split(' ')[2]);
+    const selectedDay = parseInt(dateString.split(" ")[2]);
     return selectedDay === tomorrow;
   }
 
@@ -87,12 +87,8 @@ function Reservation() {
               </Container>
             </div>
           )}
-          {!isReservationAvailable(selectedDate) && (
-            <NotAvailable />
-          )}
-          <div className="SelectedDate">
-            {selectedDate}
-          </div>
+          {!isReservationAvailable(selectedDate) && <NotAvailable />}
+          <div className="SelectedDate">{selectedDate}</div>
         </div>
       )}
     </div>

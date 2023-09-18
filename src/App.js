@@ -14,7 +14,7 @@ function App() {
         <Route path="/reservation/:id" element={<Reservation />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/myreservation" element={<Myreservation />} />
+        <Route path="/myreservation/:id" element={<Myreservation />} />
       </Routes>
     </BrowserRouter>
   );
