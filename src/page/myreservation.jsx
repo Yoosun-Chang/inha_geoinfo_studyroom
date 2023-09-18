@@ -1,28 +1,32 @@
-import React, { useState, useEffect } from "react";
-import Top from "../component/top";
+import React from "react";
+import Top2 from "../component/top2";
 import List from "../component/myreservation/list";
 import Wave from "../component/Wave";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-function Myreservation() {
-  const { id } = useParams();
-  const [user, setUser] = useState();
-  useEffect(() => {
-    axios.get(`https://geostudyroom.store/myreservation/`).then((res) => {
-      setUser(res.data);
-    });
-  }, []);
+import styled from "styled-components";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const WaveContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end; /* Wave 컴포넌트를 오른쪽에 정렬합니다. */
+  align-items: flex-end; /* Wave 컴포넌트를 아래에 정렬합니다. */
+  position: relative; /* 위치를 상대적으로 설정합니다. */
+`;
+
+function Myreservation() {
   return (
-    <div>
-      <Top />
+    <Container>
+      <Top2 />
       <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <Wave />
-    </div>
+      <WaveContainer>
+        <Wave />
+      </WaveContainer>
+    </Container>
   );
 }
 

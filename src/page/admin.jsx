@@ -7,10 +7,6 @@ function Admin() {
         <div>
             <Calendar/>
             <List />
-            <List />
-            <List />
-            <List />
-            <List />
         </div>
     );
 }

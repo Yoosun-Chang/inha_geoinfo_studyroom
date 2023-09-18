@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const HeaderAndWeekcalContainer = styled.div`
-  position: relative; /* 상대 위치 설정 */
+  position: relative; 
 `;
 
 const HeaderOverlay = styled.div`
@@ -19,7 +19,7 @@ const HeaderOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1; /* 겹쳐진 요소 위로 표시 */
+  z-index: 1; 
 `;
 
 function Reservation() {
@@ -73,6 +73,7 @@ function Reservation() {
       </HeaderAndWeekcalContainer>
       {selectedDate && (
         <div>
+
           {isToday(selectedDate) && (
             <div>
               <Container>

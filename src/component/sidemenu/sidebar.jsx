@@ -1,8 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SideBarWrap = styled.div`
   z-index: 15;
@@ -47,8 +45,7 @@ const Menu2 = styled.button`
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  /* align-items: end; */
-  width: auto;
+  align-items: end;
 `;
 
 const Menu3 = styled(Link)`
@@ -83,16 +80,6 @@ const Menu4 = styled(Link)`
 
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    axios.get(`https://geostudyroom.store/myreservation/`).then((res) => {
-      setUser(res.data);
-      console.log(res.data);
-    });
-  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutsie);
@@ -101,7 +88,23 @@ function Sidebar({ isOpen, setIsOpen }) {
     };
   }, []);
 
-  const handlerOutsie = (e) => {
+  useEffect(() => {
+    const schoolNumber = localStorage.getItem("schoolnumber");
+    if (schoolNumber) {
+      // 예약 데이터를 가져오는 Axios 요청
+      axios
+        .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
+        .then((response) => {
+          const { schoolnumber, name } = response.data[0].user;
+          setUserData({ schoolnumber, name });
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, []);
+
+  const handleOutside = (e) => {
     if (!outside.current.contains(e.target)) {
       toggleSide();
     }
@@ -130,7 +133,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       ></div>
       <ul>
         <Menu1>12201321 장유선</Menu1>
-        <Menu2 onClick={Go}>예약확인</Menu2>
+        <Menu2 to="/myreservation">예약확인</Menu2>
         <Menu3>로그아웃</Menu3>
         <Menu4 to="/admin">관리자 페이지</Menu4>
       </ul>
