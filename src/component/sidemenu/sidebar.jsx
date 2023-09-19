@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Import Axios
 
 const SideBarWrap = styled.div`
   z-index: 15;
@@ -33,7 +34,7 @@ const Menu1 = styled.div`
   align-items: end;
 `;
 
-const Menu2 = styled.button`
+const Menu2 = styled(Link)`
   margin: 40px 10px;
   color: #000;
   font-family: Nunito;
@@ -80,11 +81,12 @@ const Menu4 = styled(Link)`
 
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
+  const [userData, setUserData] = useState({ schoolnumber: "", name: "" });
 
   useEffect(() => {
-    document.addEventListener("mousedown", handlerOutsie);
+    document.addEventListener("mousedown", handleOutside);
     return () => {
-      document.removeEventListener("mousedown", handlerOutsie);
+      document.removeEventListener("mousedown", handleOutside);
     };
   }, []);
 
@@ -109,13 +111,9 @@ function Sidebar({ isOpen, setIsOpen }) {
       toggleSide();
     }
   };
-  console.log(id);
+
   const toggleSide = () => {
     setIsOpen(false);
-  };
-
-  const Go = () => {
-    navigate(`/myreservation/${id}`);
   };
 
   return (
@@ -132,7 +130,9 @@ function Sidebar({ isOpen, setIsOpen }) {
         onClick={toggleSide}
       ></div>
       <ul>
-        <Menu1>12201321 장유선</Menu1>
+        <Menu1>
+          {userData.schoolnumber} {userData.name}
+        </Menu1>
         <Menu2 to="/myreservation">예약확인</Menu2>
         <Menu3>로그아웃</Menu3>
         <Menu4 to="/admin">관리자 페이지</Menu4>

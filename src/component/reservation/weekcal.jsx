@@ -45,6 +45,9 @@ function Weekcal({ onDateClick }) {
     // 상위 컴포넌트로 클릭된 날짜를 전달
     onDateClick(selectedDateString);
     setSelectedDate(selectedDateString);
+    localStorage.setItem("Year", now.getFullYear());
+    localStorage.setItem("Month", now.getMonth() + 1);
+    localStorage.setItem("Day", day);
   };
 
   // 선재 작업 내용
