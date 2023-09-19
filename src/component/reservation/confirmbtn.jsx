@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +60,7 @@ function ConfirmButton() {
   const [showPopup, setShowPopup] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate();
-
+  const schoolNumber = localStorage.getItem("schoolnumber");
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
@@ -69,7 +69,7 @@ function ConfirmButton() {
     setAgreed(!agreed);
     if (!agreed) {
       // 동의합니다 체크박스가 체크되었을 때 /confirm 경로로 이동
-      navigate("/confirm");
+      navigate(`/confirm/${schoolNumber}`);
     }
   };
 
