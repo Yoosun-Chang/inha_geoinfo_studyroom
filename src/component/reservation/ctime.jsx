@@ -1,60 +1,69 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ConfirmButton from "./confirmbtn";
-
+import axios from "axios";
 function Ctime() {
   const [selectedTimes, setSelectedTimes] = useState([]);
+  const schoolNumber = localStorage.getItem("schoolnumber");
+  const Room = localStorage.getItem("Room");
+  const year = localStorage.getItem("Year");
+  const month = localStorage.getItem("Month");
+  const day = localStorage.getItem("Day");
+
+  // Year, Month, Day를 하나의 날짜 문자열로 합치기
+  const date = `${year}-${month}-${day}`;
+  console.log(date);
 
   // 시간대 목록 수정해야함
   const timeSlots = [
-    "9:00 am",
-    "9:30 am",
-    "10:00 am",
-    "10:30 am",
-    "11:00 am",
-    "11:30 am",
-    "12:00 pm",
-    "12:30 pm",
-    "1:00 pm",
-    "1:30 pm",
-    "2:00 pm",
-    "2:30 pm",
-    "3:00 pm",
-    "3:30 pm",
-    "4:00 pm",
-    "4:30 pm",
-    "5:00 pm",
-    "5:30 pm",
-    "6:00 pm",
-    "6:30 pm",
-    "7:00 pm",
-    "7:30 pm",
-    "8:00 pm",
-    "8:30 pm",
-    "9:00 pm",
-    "9:30 pm",
-    "10:00 pm",
-    "10:30 pm",
-    "11:00 pm",
-    "11:30 pm",
-    "12:00 am",
-    "12:30 am",
-    "1:00 am",
-    "1:30 am",
-    "2:00 am",
-    "2:30 am",
-    "3:00 am",
-    "3:30 am",
-    "4:00 am",
-    "4:30 am",
-    "5:00 am",
-    "5:30 am",
-    "6:00 am",
-    "6:30 am",
-    "7:00 am",
-    "7:30 am",
-    "8:00 am",
-    "8:30 am",
+    "09:00am",
+    "09:30am",
+    "10:00am",
+    "10:30am",
+    "11:00am",
+    "11:30am",
+    "12:00pm",
+    "12:30pm",
+    "01:00pm",
+    "01:30pm",
+    "02:00pm",
+    "02:30pm",
+    "03:00pm",
+    "03:30pm",
+    "04:00pm",
+    "04:30pm",
+    "05:00pm",
+    "05:30pm",
+    "06:00pm",
+    "06:30pm",
+    "07:00pm",
+    "07:30pm",
+    "08:00pm",
+    "08:30pm",
+    "09:00pm",
+    "09:30pm",
+    "10:00pm",
+    "10:30pm",
+    "11:00pm",
+    "11:30pm",
+    "12:00am",
+    "12:30am",
+    "01:00am",
+    "01:30am",
+    "02:00am",
+    "02:30am",
+    "03:00am",
+    "03:30am",
+    "04:00am",
+    "04:30am",
+    "05:00am",
+    "05:30am",
+    "06:00am",
+    "06:30am",
+    "07:00am",
+    "07:30am",
+    "08:00am",
+    "08:30am",
   ];
 
   // 시간대를 클릭할 때 호출되는 함수
@@ -71,6 +80,7 @@ function Ctime() {
         setSelectedTimes([...selectedTimes, time]);
       }
     }
+    console.log(selectedTimes);
   };
 
   const buttonStyle = {
@@ -103,6 +113,27 @@ function Ctime() {
   const selectedButtonStyle = {
     background: "#0089FF",
   };
+
+  localStorage.setItem("Time", JSON.stringify(selectedTimes));
+  const localTime = localStorage.getItem("Time");
+  axios
+    .post(`https://geostudyroom.store/reservationadd/${schoolNumber}`, {
+      room: Room,
+      date: date,
+      clock: localTime,
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log("POST 요청 성공");
+        console.log(response.data);
+        console.log(selectedTimes); // 요청이 성공한 후에 선택한 시간 찍
+      } else {
+        console.log("POST 요청 실패");
+      }
+    })
+    .catch((error) => {
+      console.error("POST 요청 에러:", error);
+    });
 
   return (
     <div className="time-container">
