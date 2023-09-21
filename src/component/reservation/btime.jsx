@@ -25,6 +25,7 @@ function Btime() {
 
   // 시간대를 클릭할 때 호출되는 함수
   const handleTimeClick = (time) => {
+    console.log(time)
     // 이미 클릭된 시간대인지 확인
     if (selectedTimes.includes(time)) {
       // 이미 클릭된 시간대면 선택 해제

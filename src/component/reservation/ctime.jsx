@@ -116,24 +116,6 @@ function Ctime() {
 
   localStorage.setItem("Time", JSON.stringify(selectedTimes));
   const localTime = localStorage.getItem("Time");
-  axios
-    .post(`https://geostudyroom.store/reservationadd/${schoolNumber}`, {
-      room: Room,
-      date: date,
-      clock: localTime,
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        console.log("POST 요청 성공");
-        console.log(response.data);
-        console.log(selectedTimes); // 요청이 성공한 후에 선택한 시간 찍
-      } else {
-        console.log("POST 요청 실패");
-      }
-    })
-    .catch((error) => {
-      console.error("POST 요청 에러:", error);
-    });
 
   return (
     <div className="time-container">
