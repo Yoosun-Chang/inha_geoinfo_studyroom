@@ -114,6 +114,7 @@ function ConfirmButton() {
         </ConfirmButtonContainer>
       </CenteredContainer>
       {showPopup && (
+        
         <PopupContainer>
           <CenteredContainer>
             <h2>이용 규칙</h2>
