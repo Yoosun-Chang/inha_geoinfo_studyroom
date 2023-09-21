@@ -49,7 +49,7 @@ const ListContainer = styled.div`
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 (선택 사항) */
-  margin: 1.875rem;
+  margin: 3rem;
 `;
 
 const Info = styled.div`

@@ -37,6 +37,10 @@ function Calendar() {
 
     // 클릭된 날짜에 대한 처리
     console.log(`${nowYear}년 ${nowMon}월 ${day}일 클릭!`);
+
+    const admindate = `${nowYear}-${nowMon}-${day}`;
+    localStorage.setItem('admindate', admindate);
+
   };
 
   function renderCalendar() {

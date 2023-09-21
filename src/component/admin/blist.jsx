@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // 모달 스타일
 const ModalWrapper = styled.div`
@@ -60,8 +61,9 @@ const Info = styled.div`
   line-height: 130%; /* 15.6px */
   letter-spacing: 0.25px;
   padding: 10px;
-  width: 9.0625rem;
+  width: 10rem;
   margin: 0px;
+  text-align: left !important;
 `;
 
 const CancelButton = styled.button`
@@ -82,8 +84,10 @@ align-items: center; /* 수직 중앙 정렬 (선택 사항) */
 margin-right: 1rem;
 margin-top:-20px;
 `
-
-function List(props) {
+function BList(props) {
+  const admindate = localStorage.getItem("admindate");
+  const adminRoom = "B";
+  const [reservations, setReservations] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClick = () => {
@@ -103,32 +107,48 @@ function List(props) {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    axios.get(`https://geostudyroom.store/reservationadmin/${adminRoom}/${admindate}/`)
+      .then((response) => {
+        setReservations(response.data);
+      })
+      .catch((error) => {
+        console.error('API 요청 중 오류 발생:', error);
+      });
+  }, [adminRoom, admindate]);
+
+  console.log(reservations)
   return (
-    <ListContainer>
-      <BackgroundList>
-        <Info>
-          신청자: 12201321 장유선 <br />
-        </Info>
-        <Info>
-          날짜: 2023년 8월 15일 <br />
-          시간: 16:00
-        </Info>
-        <ButtonContainer>
-        <CancelButton onClick={handleClick}>예약 취소</CancelButton>
-        </ButtonContainer>      
-      </BackgroundList>
+    <div>
+      {reservations.map((reservation) => (
+        <ListContainer key={reservation.id}>
+          <BackgroundList>
+            <Info>
+              신청자: {reservation.user ? reservation.user.name : '사용자 정보 없음'} <br />
+            </Info>
+            <Info>
+              날짜: {reservation.date ? reservation.date : '날짜 정보 없음'} <br />
+              시간: {reservation.clock_times ? reservation.clock_times.join(', ') : '시간 정보 없음'}
+            </Info>
 
-      {isModalOpen && (
-        <ModalWrapper>
-          <ModalContent>
-            <p>예약을 취소하시겠습니까?</p>
-            <ModalButton onClick={handleCancelReservation}>확인</ModalButton>
-            <ModalButton onClick={handleCloseModal}>취소</ModalButton>
-          </ModalContent>
-        </ModalWrapper>
-      )}
-    </ListContainer>
+            <ButtonContainer>
+              <CancelButton onClick={handleClick}>예약 취소</CancelButton>
+            </ButtonContainer>
+          </BackgroundList>
+  
+          {isModalOpen && (
+            <ModalWrapper>
+              <ModalContent>
+                <p>예약을 취소하시겠습니까?</p>
+                <ModalButton onClick={handleCancelReservation}>확인</ModalButton>
+                <ModalButton onClick={handleCloseModal}>취소</ModalButton>
+              </ModalContent>
+            </ModalWrapper>
+          )}
+        </ListContainer>
+      ))}
+    </div>
   );
-}
+  }
 
-export default List;
+export default BList;

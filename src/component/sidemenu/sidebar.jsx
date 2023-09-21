@@ -116,6 +116,7 @@ function Sidebar({ isOpen, setIsOpen }) {
     setIsOpen(false);
   };
 
+  const schoolNumber = localStorage.getItem("schoolnumber");
   return (
     <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
       <div
@@ -133,7 +134,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Menu1>
           {userData.schoolnumber} {userData.name}
         </Menu1>
-        <Menu2 to="/myreservation">예약확인</Menu2>
+        <Menu2 to={`/myreservation/${schoolNumber}`}>예약확인</Menu2>
         <Menu3>로그아웃</Menu3>
         <Menu4 to="/admin">관리자 페이지</Menu4>
       </ul>
