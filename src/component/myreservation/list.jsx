@@ -108,7 +108,7 @@ function List(props) {
     if (schoolNumber) {
       // 예약 데이터를 가져오는 Axios 요청
       axios
-        .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
+        .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
         .then((response) => {
           const reservations = response.data;
           // 가져온 예약 데이터를 상태에 저장합니다.

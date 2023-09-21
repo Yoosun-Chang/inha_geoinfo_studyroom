@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Reservation from "./page/reservation";
-import Inform from "./component/main/Inform";
+import Inform from "./component/main/inform";
 import Confirm from "./component/reservation/confirm";
 import Admin from "./page/admin";
 import Myreservation from "./page/myreservation";

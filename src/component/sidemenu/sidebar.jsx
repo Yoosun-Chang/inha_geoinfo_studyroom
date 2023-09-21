@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
 
 const SideBarWrap = styled.div`
   z-index: 15;

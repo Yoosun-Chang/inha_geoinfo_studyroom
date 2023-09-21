@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PopupContainer = styled.div`
   position: fixed;
@@ -42,10 +43,6 @@ const ConfirmButtonContainer = styled.div`
   line-height: 50px;
 `;
 
-const AgreementText = styled.p`
-  margin: 20px 0;
-`;
-
 const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
@@ -61,15 +58,51 @@ function ConfirmButton() {
   const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate();
   const schoolNumber = localStorage.getItem("schoolnumber");
+  const Room = localStorage.getItem("Room");
+  const year = localStorage.getItem("Year");
+  const month = localStorage.getItem("Month");
+  const day = localStorage.getItem("Day");
+  const date = `${year}-${month}-${day}`;
+  const localTime = localStorage.getItem("Time");
+
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
   const handleAgree = () => {
     setAgreed(!agreed);
+  
     if (!agreed) {
       // 동의합니다 체크박스가 체크되었을 때 /confirm 경로로 이동
       navigate(`/confirm/${schoolNumber}`);
+  
+      // Make the axios POST request here
+      axios
+      .post(`https://geostudyroom.store/reservationadd/${schoolNumber}/`, {
+        "room": Room,
+        "date": date,
+        "clock": JSON.parse(localTime) // localTime을 JSON 배열로 파싱
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          console.log("POST 요청 성공");
+          console.log(response.data);
+          console.log(localTime); // 요청이 성공한 후에 선택한 시간 찍
+        } else {
+          console.log("POST 요청 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("POST 요청 에러:", error);
+        
+        console.log({
+          room: Room,
+          date: date,
+          clock: JSON.parse(localTime) // localTime을 JSON 배열로 파싱
+        });
+      });
+    
+    
     }
   };
 
@@ -113,3 +146,6 @@ function ConfirmButton() {
 }
 
 export default ConfirmButton;
+
+
+
