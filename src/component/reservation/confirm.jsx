@@ -54,31 +54,28 @@ const Button = styled.button`
 const Confirm = ({ reservationInfo }) => {
   const navigate = useNavigate();
   const schoolNumber = localStorage.getItem("schoolnumber");
+  const admindate = localStorage.getItem("admindate");
+  const adminRoom = localStorage.getItem("Room");
   // 예약 정보를 받아온다고 가정 (reservationInfo 객체에 예약자, 날짜, 시간 정보 포함)
   //const { name, date, time } = reservationInfo;
-
+  const [User, setUser] = useState([]);
   // 메인 페이지로 이동하는 함수
   const goToMain = () => {
     navigate(`/reservation/${schoolNumber}`); // 메인 페이지 경로로 이동
   };
   const [reservationData, setReservationData] = useState([]);
-
+  const [reservations, setReservations] = useState([]);
   useEffect(() => {
-    // schoolNumber가 있을 경우에만 API 요청
-    if (schoolNumber) {
-      // 예약 데이터를 가져오는 Axios 요청
-      axios
-        .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
-        .then((response) => {
-          const reservations = response.data;
-          // 가져온 예약 데이터를 상태에 저장합니다.
-          setReservationData(reservations);
-        })
-        .catch((error) => {
-          console.error("예약 데이터를 가져오는 중 오류 발생:", error);
-        });
-    }
+    axios
+      .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("API 요청 중 오류 발생:", error);
+      });
   }, []);
+  console.log(User);
 
   return (
     <div>
@@ -86,15 +83,15 @@ const Confirm = ({ reservationInfo }) => {
       <TextContainer>
         <Text1>예약이 확정되었습니다!</Text1>
         <p />
-        <Text2>
-          {" "}
-          예약자:{" "}
-          {reservationData.user
-            ? reservationData.user.schoolnumber
-            : "데이터 없음"}{" "}
-        </Text2>
-        <Text2>날짜: {reservationData.date}</Text2>
-        <Text2>시간: {reservationData.clock_times}</Text2>
+        {User.length > 0 ? ( // User 배열이 비어 있지 않은 경우
+          <>
+            <Text2>예약자: {User[0].user.name}</Text2>
+            <Text2>날짜: {User[0].date}</Text2>
+            <Text2>시간: {User[0].clock_times.join(", ")}</Text2>
+          </>
+        ) : (
+          <Text2>예약 정보를 불러오는 중입니다...</Text2>
+        )}
         <Button onClick={goToMain}>뒤로</Button>
       </TextContainer>
       <Wave />

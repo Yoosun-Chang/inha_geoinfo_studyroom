@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import axios from "axios"; 
+import axios from "axios";
 
 const SideBarWrap = styled.div`
   z-index: 15;
@@ -115,6 +115,25 @@ function Sidebar({ isOpen, setIsOpen }) {
   const toggleSide = () => {
     setIsOpen(false);
   };
+  const handleLogout = () => {
+    axios
+      .get(`https://geostudyroom.store/logout/`)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("사용자가 성공적으로 로그아웃되었습니다.");
+          // 로컬 스토리지에서 사용자 정보 제거
+          localStorage.removeItem("schoolnumber");
+          setUserData({ schoolnumber: "", name: "" });
+          alert("로그아웃 되었습니다.");
+        } else {
+          console.error(response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("API 요청 중 오류 발생:", error);
+        // 로그아웃 오류를 처리할 수 있습니다.
+      });
+  };
 
   const schoolNumber = localStorage.getItem("schoolnumber");
   return (
@@ -135,7 +154,10 @@ function Sidebar({ isOpen, setIsOpen }) {
           {userData.schoolnumber} {userData.name}
         </Menu1>
         <Menu2 to={`/myreservation/${schoolNumber}`}>예약확인</Menu2>
-        <Menu3>로그아웃</Menu3>
+        <Menu3 onClick={handleLogout} to={`/Main`}>
+          {" "}
+          로그아웃
+        </Menu3>
         <Menu4 to="/admin">관리자 페이지</Menu4>
       </ul>
     </SideBarWrap>
