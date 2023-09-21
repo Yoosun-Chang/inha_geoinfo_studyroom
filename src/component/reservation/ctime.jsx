@@ -115,6 +115,7 @@ function Ctime() {
   };
 
   localStorage.setItem("Time", JSON.stringify(selectedTimes));
+  localStorage.setItem("time", selectedTimes);
   const localTime = localStorage.getItem("Time");
 
   return (

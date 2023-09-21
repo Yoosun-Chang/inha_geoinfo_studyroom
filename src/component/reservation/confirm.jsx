@@ -56,6 +56,8 @@ const Confirm = ({ reservationInfo }) => {
   const schoolNumber = localStorage.getItem("schoolnumber");
   const admindate = localStorage.getItem("admindate");
   const adminRoom = localStorage.getItem("Room");
+  const time = localStorage.getItem("time");
+  const Name = localStorage.getItem("Name");
   // 예약 정보를 받아온다고 가정 (reservationInfo 객체에 예약자, 날짜, 시간 정보 포함)
   //const { name, date, time } = reservationInfo;
   const [User, setUser] = useState([]);
@@ -85,9 +87,9 @@ const Confirm = ({ reservationInfo }) => {
         <p />
         {User.length > 0 ? ( // User 배열이 비어 있지 않은 경우
           <>
-            <Text2>예약자: {User[0].user.name}</Text2>
-            <Text2>날짜: {User[0].date}</Text2>
-            <Text2>시간: {User[0].clock_times.join(", ")}</Text2>
+            <Text2>예약자: {Name}</Text2>
+            <Text2>날짜: {admindate}</Text2>
+            <Text2>시간: {time}</Text2>
           </>
         ) : (
           <Text2>예약 정보를 불러오는 중입니다...</Text2>
