@@ -5,13 +5,14 @@ import RoomBtn from "../component/reservation/roombtn";
 import NotAvailable from "../component/reservation/notavailable";
 import ConfirmButton from "../component/reservation/confirmbtn";
 import Header from "../component/sidemenu/header";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   text-align: center;
 `;
 
 const HeaderAndWeekcalContainer = styled.div`
-  position: relative; 
+  position: relative;
 `;
 
 const HeaderOverlay = styled.div`
@@ -19,12 +20,25 @@ const HeaderOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1; 
+  z-index: 1;
 `;
 
 function Reservation() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isTomorrowButtonEnabled, setIsTomorrowButtonEnabled] = useState(false);
+  const navigate = useNavigate();
+
+  // 페이지 로딩 시 로컬 스토리지에서 schoolNumber와 name 확인
+  useEffect(() => {
+    const schoolNumber = localStorage.getItem("schoolNumber");
+    const name = localStorage.getItem("name");
+
+    // schoolNumber와 name이 없을 때 /main 페이지로 이동
+    // 왜 푸시 안되니 푸시 푸시 해줘
+    if (!schoolNumber || !name) {
+      navigate("/main");
+    }
+  }, [navigate]);
 
   const handleDateClick = (selectedDateString) => {
     setSelectedDate(selectedDateString);
@@ -73,7 +87,6 @@ function Reservation() {
       </HeaderAndWeekcalContainer>
       {selectedDate && (
         <div>
-
           {isToday(selectedDate) && (
             <div>
               <Container>
