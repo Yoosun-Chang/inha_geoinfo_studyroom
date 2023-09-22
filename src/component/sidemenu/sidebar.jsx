@@ -122,7 +122,8 @@ function Sidebar({ isOpen, setIsOpen }) {
         if (response.status === 200) {
           console.log("사용자가 성공적으로 로그아웃되었습니다.");
           // 로컬 스토리지에서 사용자 정보 제거
-          localStorage.removeItem("schoolnumber");
+          //localStorage.removeItem("schoolnumber");
+          localStorage.clear(); // 모든 데이터 삭제
           setUserData({ schoolnumber: "", name: "" });
           alert("로그아웃 되었습니다.");
         } else {

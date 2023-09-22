@@ -103,6 +103,20 @@ function Inform() {
     setName(e.target.value);
     console.log(e.target.value);
   };
+
+  useEffect(() => {
+    // localStorage에서 schoolnumber와 Name 가져오기
+    const schoolNumber = localStorage.getItem("schoolnumber");
+    const name = localStorage.getItem("Name");
+  
+    // schoolnumber와 Name이 모두 있는 경우
+    if (schoolNumber && name) {
+      // 원하는 페이지로 이동 (예: main 페이지)
+      navigate(`/reservation/${schoolNumber}`);
+    }
+  }, []); // 빈 배열을 전달하여 페이지가 처음 로드될 때만 실행
+
+  
   useEffect(() => {
     // 페이지가 로드된 후에 실행될 코드
     // CSRF 토큰 가져오기 (Django가 제공하는 쿠키에서 추출)

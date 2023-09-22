@@ -18,7 +18,7 @@ const ModalWrapper = styled.div`
 
 const ModalContent = styled.div`
   background: #fff;
-  color: #000; /* 글자 색상을 설정합니다. */
+  color: #000;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -27,7 +27,7 @@ const ModalContent = styled.div`
 
 const ModalButton = styled.button`
   background-color: #00b0ff;
-  color: black; /* 버튼의 텍스트 컬러를 설정합니다. */
+  color: black;
   font-size: smaller;
   font-weight: bold;
   margin-left: 10px;
@@ -47,9 +47,9 @@ const BackgroundList = styled.div`
 
 const ListContainer = styled.div`
   display: flex; 
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 (선택 사항) */
-  margin : 1.875rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1.875rem;
 `;
 
 const Info = styled.div`
@@ -58,7 +58,7 @@ const Info = styled.div`
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 130%; /* 15.6px */
+  line-height: 130%;
   letter-spacing: 0.25px;
   padding: 10px;
   width: 10rem;
@@ -78,21 +78,25 @@ const CancelButton = styled.button`
 `;
 
 const ButtonContainer = styled.div`
-display: flex; 
-justify-content: right; /* 수평 중앙 정렬 */
-align-items: center; /* 수직 중앙 정렬 (선택 사항) */
-margin-right: 1rem;
-margin-top:-20px;
-`
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: center; 
+  margin-right: 1rem;
+  margin-top: -20px;
+`;
+
 function BList(props) {
   const admindate = localStorage.getItem("admindate");
   const adminRoom = "B";
   const [reservations, setReservations] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reservationData, setReservationData] = useState(null); // 예약 데이터 상태 추가
 
-  const handleClick = () => {
+  const handleClick = (reservation) => {
     // 클릭 시 모달 열기
     setIsModalOpen(true);
+    // 모달을 열 때 해당 예약 데이터를 설정
+    setReservationData(reservation);
   };
 
   const handleCloseModal = () => {
@@ -100,11 +104,26 @@ function BList(props) {
     setIsModalOpen(false);
   };
 
-  const handleCancelReservation = () => {
-    // 예약 취소 동작을 여기에 추가
-    console.log('예약이 취소되었습니다.');
-    // 모달 닫기
-    setIsModalOpen(false);
+  const handleCancelReservation = (date, clock) => {
+    // 예약 취소를 위한 API 요청을 보냅니다.
+    const schoolNumber = localStorage.getItem('schoolnumber');
+
+    axios
+      .delete(`https://geostudyroom.store/reservationadmin/B/${date}/${clock}/`)
+      .then((response) => {
+        console.log('예약이 취소되었습니다.');
+        // 예약이 취소되면 모달 닫기
+        setIsModalOpen(false);
+        // 예약 정보 초기화 (빈 배열로)
+        setReservations((prevReservations) =>
+          prevReservations.filter((reservation) =>
+            reservation.date !== date && reservation.clock_times[0] !== clock
+          )
+        );
+      })
+      .catch((error) => {
+        console.error('예약 취소 중 오류 발생:', error);
+      });
   };
 
   useEffect(() => {
@@ -117,7 +136,8 @@ function BList(props) {
       });
   }, [adminRoom, admindate]);
 
-  console.log(reservations)
+  console.log(reservations);
+
   return (
     <div>
       {reservations.map((reservation) => (
@@ -130,17 +150,15 @@ function BList(props) {
               날짜: {reservation.date ? reservation.date : '날짜 정보 없음'} <br />
               시간: {reservation.clock_times ? reservation.clock_times.join(', ') : '시간 정보 없음'}
             </Info>
-
             <ButtonContainer>
-              <CancelButton onClick={handleClick}>예약 취소</CancelButton>
+              <CancelButton onClick={() => handleClick(reservation)}>예약 취소</CancelButton>
             </ButtonContainer>
           </BackgroundList>
-  
-          {isModalOpen && (
+          {isModalOpen && reservationData === reservation && (
             <ModalWrapper>
               <ModalContent>
                 <p>예약을 취소하시겠습니까?</p>
-                <ModalButton onClick={handleCancelReservation}>확인</ModalButton>
+                <ModalButton onClick={() => handleCancelReservation(reservation.date, reservation.clock_times[0])}>확인</ModalButton>
                 <ModalButton onClick={handleCloseModal}>취소</ModalButton>
               </ModalContent>
             </ModalWrapper>
@@ -149,6 +167,6 @@ function BList(props) {
       ))}
     </div>
   );
-  }
+}
 
 export default BList;
