@@ -65,7 +65,7 @@ const Info = styled.div`
   line-height: 130%; /* 15.6px */
   letter-spacing: 0.25px;
   padding: 10px;
-  width: 10rem;
+  width: 15rem;
   margin: 0px;
 `;
 

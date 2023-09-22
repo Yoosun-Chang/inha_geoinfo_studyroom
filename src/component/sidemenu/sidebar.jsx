@@ -95,8 +95,13 @@ function Sidebar({ isOpen, setIsOpen }) {
     if (schoolNumber) {
       // 예약 데이터를 가져오는 Axios 요청
       axios
-        .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
+        .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
         .then((response) => {
+          if (response.status === 204) {
+            console.log("예약목록 없음"); // 데이터 없음을 로그에 출력
+            return; // 데이터가 없으므로 더 이상 처리하지 않음
+          }
+  
           const userDataFromResponse = response.data[0].user;
           if (userDataFromResponse) {
             const { schoolnumber, name } = userDataFromResponse;
@@ -143,6 +148,7 @@ function Sidebar({ isOpen, setIsOpen }) {
   };
 
   const schoolNumber = localStorage.getItem("schoolnumber");
+  const Name = localStorage.getItem("Name");
   return (
     <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
       <div
@@ -158,7 +164,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       ></div>
       <ul>
         <Menu1>
-          {userData.schoolnumber} {userData.name}
+          {schoolNumber} {Name}
         </Menu1>
         <Menu2 to={`/myreservation/${schoolNumber}`}>예약확인</Menu2>
         <Menu3 onClick={handleLogout} to={`/Main`}>
