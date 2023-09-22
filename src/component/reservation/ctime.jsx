@@ -13,7 +13,7 @@ function Ctime() {
   // Year, Month, Day를 하나의 날짜 문자열로 합치기
   const date = `${year}-${month}-${day}`;
   console.log(date);
-
+  localStorage.setItem("admindate", date);
   // 시간대 목록 수정해야함
   const timeSlots = [
     "09:00am",
