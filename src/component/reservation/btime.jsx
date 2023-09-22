@@ -113,10 +113,9 @@ function Btime() {
   const selectedButtonStyle = {
     background: "#0089FF",
   };
-
   localStorage.setItem("Time", JSON.stringify(selectedTimes));
   const localTime = localStorage.getItem("Time");
-
+  localStorage.setItem("time", selectedTimes);
   return (
     <div className="time-container">
       <BtnContainer>
