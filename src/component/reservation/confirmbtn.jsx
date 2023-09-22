@@ -60,8 +60,15 @@ function ConfirmButton() {
   const schoolNumber = localStorage.getItem("schoolnumber");
   const Room = localStorage.getItem("Room");
   const year = localStorage.getItem("Year");
-  const month = localStorage.getItem("Month");
+  let month = localStorage.getItem("Month");
   const day = localStorage.getItem("Day");
+
+  // 월을 두 자리로
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  
+
   const date = `${year}-${month}-${day}`;
   const localTime = localStorage.getItem("Time");
 

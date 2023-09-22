@@ -109,7 +109,7 @@ function BList(props) {
     const schoolNumber = localStorage.getItem('schoolnumber');
 
     axios
-      .delete(`https://geostudyroom.store/reservationadmin/B/${date}/${clock}/`)
+      .delete(`https://geostudyroom.store/reservationdelete/B/${date}/${clock}/`)
       .then((response) => {
         console.log('예약이 취소되었습니다.');
         // 예약이 취소되면 모달 닫기
@@ -127,7 +127,7 @@ function BList(props) {
   };
 
   useEffect(() => {
-    axios.get(`https://geostudyroom.store/reservationadmin/${adminRoom}/${admindate}/`)
+    axios.get(`https://geostudyroom.store/reservationadmin/B/${admindate}/`)
       .then((response) => {
         setReservations(response.data);
       })
