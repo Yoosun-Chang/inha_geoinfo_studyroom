@@ -7,7 +7,7 @@ function Calendar() {
   const [clickedButton, setClickedButton] = useState(null);
 
   const nowYear = date.getFullYear();
-  const nowMon = date.getMonth() + 1;
+  let nowMon = date.getMonth() + 1;
 
   const bfBtn = () => {
     const newDate = new Date(date);
@@ -38,9 +38,12 @@ function Calendar() {
     // 클릭된 날짜에 대한 처리
     console.log(`${nowYear}년 ${nowMon}월 ${day}일 클릭!`);
 
+    if (nowMon < 10) {
+      nowMon = `0${nowMon}`;
+    }
+    
     const admindate = `${nowYear}-${nowMon}-${day}`;
     localStorage.setItem('admindate', admindate);
-
   };
 
   function renderCalendar() {
