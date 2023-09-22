@@ -79,8 +79,8 @@ const CancelButton = styled.button`
 
 const ButtonContainer = styled.div`
 display: flex; 
-justify-content: right; /* 수평 중앙 정렬 */
-align-items: center; /* 수직 중앙 정렬 (선택 사항) */
+justify-content: right; 
+align-items: center; 
 margin-right: 1rem;
 margin-top:-20px;
 `
@@ -124,6 +124,7 @@ function BList(props) {
         <ListContainer key={reservation.id}>
           <BackgroundList>
             <Info>
+
               신청자: {reservation.user ? reservation.user.name : '사용자 정보 없음'} <br />
             </Info>
             <Info>
