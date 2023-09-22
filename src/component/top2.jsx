@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import TopImage from './Top.jpg'; // 이미지 파일 경로를 적절히 수정하세요
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import TopImage from "./Top.jpg"; // 이미지 파일 경로를 적절히 수정하세요
+import { Link } from "react-router-dom";
 
 // 반응형 이미지 스타일 컴포넌트
 const ResponsiveImage = styled.img`
@@ -22,25 +22,26 @@ const CenteredContainer = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 4vw;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   letter-spacing: 0.05rem;
   position: absolute;
-  color: #FFF;
+  color: #fff;
   left: 10px;
   background-color: transparent;
-  text-decoration: none !important; /* Add this line */
+  text-decoration: none !important;
   cursor: pointer;
 `;
 
 function Top2() {
+  const schoolNumber = localStorage.getItem("schoolnumber");
   return (
     <CenteredContainer>
       <ResponsiveImage src={TopImage} alt="Top Image" />
-      <StyledLink to="/reservation">
+      <StyledLink to={`/reservation/${schoolNumber}`}>
         INHA UNIVERSITY
       </StyledLink>
     </CenteredContainer>
