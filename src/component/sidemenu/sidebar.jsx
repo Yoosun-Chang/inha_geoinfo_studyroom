@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { Navigate } from "react-router-dom";
 const SideBarWrap = styled.div`
   z-index: 15;
   border-radius: 15px 0 0 15px;
@@ -82,7 +82,7 @@ const Menu4 = styled(Link)`
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
   const [userData, setUserData] = useState({ schoolnumber: "", name: "" });
-
+  const navigate = useNavigate();
   useEffect(() => {
     document.addEventListener("mousedown", handleOutside);
     return () => {
@@ -97,8 +97,13 @@ function Sidebar({ isOpen, setIsOpen }) {
       axios
         .get(`https://geostudyroom.store/myreservation/${schoolNumber}`)
         .then((response) => {
-          const { schoolnumber, name } = response.data[0].user;
-          setUserData({ schoolnumber, name });
+          const userDataFromResponse = response.data[0].user;
+          if (userDataFromResponse) {
+            const { schoolnumber, name } = userDataFromResponse;
+            setUserData({ schoolnumber, name });
+          } else {
+            console.error("API 응답에 'user' 속성이 없습니다.");
+          }
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -129,6 +134,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         } else {
           console.error(response.status);
         }
+        navigate(`/main`);
       })
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);

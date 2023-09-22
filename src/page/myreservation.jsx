@@ -24,8 +24,8 @@ function Myreservation() {
 
   // 페이지 로딩 시 로컬 스토리지에서 schoolNumber와 name 확인
   useEffect(() => {
-    const schoolNumber = localStorage.getItem("schoolNumber");
-    const name = localStorage.getItem("name");
+    const schoolNumber = localStorage.getItem("schoolnumber");
+    const name = localStorage.getItem("Name");
 
     // schoolNumber와 name이 없을 때 /main 페이지로 이동
     if (!schoolNumber || !name) {
