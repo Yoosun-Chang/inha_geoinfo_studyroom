@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Top2 from "../component/top2";
+import Top2 from "../component/Top2";
 import List from "../component/myreservation/list";
 import Wave from "../component/Wave";
 import styled from "styled-components";
