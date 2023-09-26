@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import SchoolLogoImage from './SchoolLogo.png';
 
 // 모달 스타일
 const ModalWrapper = styled.div`
@@ -69,17 +71,35 @@ const Info = styled.div`
   margin: 0px;
 `;
 
-const Info2 = styled.div`
-  color: #000;
-  font-family: Poppins;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%; /* 15.6px */
-  letter-spacing: 0.25px;
-  padding: 50px;
-  margin: 0px;
+const CenteredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  margin: 30px;
+
 `;
+
+const LogoImage = styled.img`
+  width: 10rem;
+  height: 12em;
+  flex-shrink: 0;
+  margin: 3rem; 
+`;
+
+const CenteredText = styled.div`
+  color: white;
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  background:linear-gradient(180deg, #0AF 0%, #78D2FF 100%);
+  padding: 7px; 
+  border-radius: 10px;
+`;
+
 
 const CancelButton = styled.button`
   width: 5rem;
@@ -99,9 +119,31 @@ const ButtonContainer = styled.div`
   margin-right: 1rem;
   margin-top: -40px;
 `;
+
+const Button = styled.button`
+  width: 150px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: #0089ff;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  user-select: none;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  line-height: 50px;
+  border: none;
+`;
+
 function List(props) {
   const [reservationData, setReservationData] = useState([]);
-
+  const schoolNumber = localStorage.getItem("schoolnumber");
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate(`/reservation/${schoolNumber}`); // 메인 페이지 경로로 이동
+  };
   useEffect(() => {
     // localStorage에서 schoolnumber 가져오기
     const schoolNumber = localStorage.getItem("schoolnumber");
@@ -151,7 +193,12 @@ function List(props) {
   return (
     <div>
       {reservationData.length === 0 ? (
-        <Info2>예약 목록 없음</Info2>
+        <CenteredContainer>
+        <LogoImage src={SchoolLogoImage} alt="School Logo" />
+        <CenteredText>
+          예약 목록이 없습니다.
+        </CenteredText>
+      </CenteredContainer>
       ) : (
         reservationData.map((reservation, index) => (
           <ListContainer key={index}>
@@ -189,6 +236,9 @@ function List(props) {
           </ListContainer>
         ))
       )}
+        <CenteredContainer>
+        <Button onClick={goToMain}>예약하기</Button>
+      </CenteredContainer>
     </div>
   );
 }
