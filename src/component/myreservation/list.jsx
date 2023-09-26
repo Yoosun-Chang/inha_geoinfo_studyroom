@@ -77,7 +77,6 @@ const CenteredContainer = styled.div`
   align-items: center; 
   justify-content: center;
   margin: 30px;
-
 `;
 
 const LogoImage = styled.img`

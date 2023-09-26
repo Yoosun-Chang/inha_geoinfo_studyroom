@@ -60,6 +60,7 @@ const Help = styled.div`
   font-weight: bold;
   padding-bottom: 7.3%;
 `;
+
 const Button = styled.button`
   position: absolute;
   width: 30%;
@@ -87,8 +88,11 @@ function Inform() {
     Swal.fire({
       title: "<데이터 미등록> <br/> 문의바랍니다.",
       text: "설윤환 010-5335-1393",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "확인",
+      icon: 'warning',
+      //showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+      confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+      //cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+      //cancelButtonText: '취소', // cancel 버튼 텍스트 지정
     });
   };
   const [id, setid] = useState("");
