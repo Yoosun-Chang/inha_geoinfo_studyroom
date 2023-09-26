@@ -114,7 +114,7 @@ function CList(props) {
 
     axios
       .delete(
-        `https://geostudyroom.store/reservationdelete/C/${date}/${clock}/`
+        `https://geostudyroom.store/reservationadmin/C/${date}/${clock}/`
       )
       .then((response) => {
         console.log("예약이 취소되었습니다.");

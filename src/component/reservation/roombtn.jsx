@@ -38,7 +38,7 @@ function CRoomBtn() {
     height: "2.8125rem",
     flexShrink: 0,
     borderRadius: "50px",
-    background: "linear-gradient(180deg, #0AF 0%, #78D2FF 100%)",
+    background: "linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%)",
     cursor: "pointer",
     border: "none",
     color: "white",

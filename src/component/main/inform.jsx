@@ -111,7 +111,6 @@ function Inform() {
   
     // schoolnumber와 Name이 모두 있는 경우
     if (schoolNumber && name) {
-      // 원하는 페이지로 이동 (예: main 페이지)
       navigate(`/reservation/${schoolNumber}`);
     }
   }, []); // 빈 배열을 전달하여 페이지가 처음 로드될 때만 실행
