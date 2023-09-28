@@ -95,7 +95,7 @@ function CList(props) {
   const [reservations, setReservations] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reservationData, setReservationData] = useState(null); // 예약 데이터 상태 추가
-
+  const schoolNumber = localStorage.getItem("schoolnumber");
   const handleClick = (reservation) => {
     // 클릭 시 모달 열기
     setIsModalOpen(true);
@@ -113,9 +113,7 @@ function CList(props) {
     const schoolNumber = localStorage.getItem("schoolnumber");
 
     axios
-      .delete(
-        `https://geostudyroom.store/reservationadmin/C/${date}/${clock}/`
-      )
+      .delete(`https://geostudyroom.store/reservationadmin/C/${date}/${clock}/`)
       .then((response) => {
         console.log("예약이 취소되었습니다.");
         // 예약이 취소되면 모달 닫기
@@ -155,6 +153,10 @@ function CList(props) {
               신청자:{" "}
               {reservation.user ? reservation.user.name : "사용자 정보 없음"}{" "}
               <br />
+              학번:{" "}
+              {reservation.user
+                ? reservation.user.schoolnumber
+                : "학번 정보 없음"}{" "}
             </Info>
             <Info>
               날짜: {reservation.date ? reservation.date : "날짜 정보 없음"}{" "}
