@@ -82,7 +82,9 @@ const Menu4 = styled(Link)`
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
   const [userData, setUserData] = useState({ schoolnumber: "", name: "" });
+  const [isAdmin, setIsAdmin] = useState(false); // Add state for admin status
   const navigate = useNavigate();
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutside);
     return () => {
@@ -147,6 +149,29 @@ function Sidebar({ isOpen, setIsOpen }) {
       });
   };
 
+  useEffect(() => {
+    axios
+      .get(`https://geostudyroom.store/userlist/`, {
+        headers: {
+          accept: "application/json",
+          "X-CSRFToken": "sf1hfhsyjC3CHnwTBLxQabolXApdCNWImnaVRIqdAb7y7X96KpPKJJcneBAlczGZ",
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          const schoolNumber = localStorage.getItem("schoolnumber");
+          const adminUser = response.data.find((user) => user.schoolnumber === schoolNumber);
+
+          if (adminUser && adminUser.is_staff) {
+            setIsAdmin(true);
+          }
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
+
   const schoolNumber = localStorage.getItem("schoolnumber");
   const Name = localStorage.getItem("Name");
   return (
@@ -171,7 +196,16 @@ function Sidebar({ isOpen, setIsOpen }) {
           {" "}
           로그아웃
         </Menu3>
-        <Menu4 to="/admin">관리자 페이지</Menu4>
+        {isAdmin ? (
+          <Menu4 to="/admin">관리자 페이지</Menu4>
+        ) : (
+          <Menu4
+            onClick={() => alert("관리자가 아닙니다.")} // Display alert for non-admin users
+            style={{ cursor: "pointer" }}
+          >
+            관리자 페이지
+          </Menu4>
+        )}
       </ul>
     </SideBarWrap>
   );
