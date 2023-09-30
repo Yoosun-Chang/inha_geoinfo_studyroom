@@ -94,7 +94,7 @@ function ConfirmButton() {
             console.log(localTime); // 요청이 성공한 후에 선택한 시간 찍
           } else {
             console.log("POST 요청 실패");
-            navigate(`/notconfirm/${schoolNumber}`); // 에러 발생 시 이동
+            navigate(`/confirmerror/${schoolNumber}`); // 에러 발생 시 이동
           }
         })
         .catch((error) => {
