@@ -98,6 +98,7 @@ function BList(props) {
   const [reservationData, setReservationData] = useState(null); // 예약 데이터 상태 추가
   const schoolNumber = localStorage.getItem("schoolnumber");
   const [selectedDate, setSelectedDate] = useState(null);
+  const [Status, setStatus] = useState("");
   const handleClick = (reservation) => {
     // 클릭 시 모달 열기
     setIsModalOpen(true);
@@ -137,22 +138,27 @@ function BList(props) {
     axios
       .get(`https://geostudyroom.store/reservationadmin/B/${admindate}/`)
       .then((response) => {
-        setReservations(response.data);
+        if (response.status === 200) {
+          // API 요청이 성공한 경우에만 데이터 설정
+          setReservations(response.data);
+          setStatus("Ok");
+        } else {
+          // 예외 처리 또는 오류 메시지 표시
+          console.error("API 요청이 실패했습니다.");
+          setStatus("NoData");
+          console.log(Status);
+        }
       })
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);
       });
-
-    // 선택한 날짜가 변경될 때마다 예약 정보를 업데이트
-    setSelectedDate(admindate);
   }, [adminRoom, admindate]);
   console.log(selectedDate);
   console.log(admindate);
   return (
     <div>
-      {selectedDate !== localStorage.getItem("admindate") &&
-      reservations.length === 0 ? (
-        <p>선택한 날짜에 예약된 정보가 없습니다.</p>
+      {Status === "NoData" ? (
+        <Info>선택된 날짜에 예약된 사용자가 없습니다.</Info>
       ) : (
         reservations.map((reservation) => (
           <ListContainer key={reservation.id}>
