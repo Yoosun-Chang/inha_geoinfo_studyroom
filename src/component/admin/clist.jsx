@@ -38,7 +38,7 @@ const ModalButton = styled.button`
 
 const BackgroundList = styled.div`
   width: 21.875rem;
-  height: 6.4375rem;
+  height: 8rem;
   flex-shrink: 0;
   background: linear-gradient(
     180deg,
@@ -65,7 +65,7 @@ const Info = styled.div`
   line-height: 130%;
   letter-spacing: 0.25px;
   padding: 10px;
-  width: 10rem;
+  width: 19rem;
   margin: 0px;
   text-align: left !important;
 `;
@@ -77,6 +77,7 @@ const CancelButton = styled.button`
   color: #fff;
   font-size: smaller;
   font-weight: bold;
+  margin-top: 10px;
   margin-left: 10px;
   border-radius: 10px;
 `;
@@ -88,7 +89,6 @@ const ButtonContainer = styled.div`
   margin-right: 1rem;
   margin-top: -20px;
 `;
-
 function CList(props) {
   const admindate = localStorage.getItem("admindate");
   const adminRoom = "B";
