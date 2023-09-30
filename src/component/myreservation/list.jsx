@@ -137,25 +137,33 @@ const Button = styled.button`
 `;
 
 function List(props) {
-  const [reservationData, setReservationData] = useState([]);
+  const [currentDayReservations, setCurrentDayReservations] = useState([]);
+  const [allReservations, setAllReservations] = useState([]);
+  const [showAllReservations, setShowAllReservations] = useState(false);
   const schoolNumber = localStorage.getItem("schoolnumber");
   const navigate = useNavigate();
+  
   const goToMain = () => {
-    navigate(`/reservation/${schoolNumber}`); // 메인 페이지 경로로 이동
+    navigate(`/reservation/${schoolNumber}`);
   };
+  
   useEffect(() => {
-    // localStorage에서 schoolnumber 가져오기
     const schoolNumber = localStorage.getItem("schoolnumber");
-
-    // schoolNumber가 있을 경우에만 API 요청
+    
     if (schoolNumber) {
-      // 예약 데이터를 가져오는 Axios 요청
       axios
         .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
         .then((response) => {
           const reservations = response.data;
-          // 가져온 예약 데이터를 상태에 저장합니다.
-          setReservationData(reservations);
+          
+          // Filter current day reservations
+          const currentDate = new Date().toISOString().split("T")[0];
+          const currentDayReservations = reservations.filter(
+            (reservation) => reservation.date === currentDate
+          );
+          
+          setCurrentDayReservations(currentDayReservations);
+          setAllReservations(reservations);
         })
         .catch((error) => {
           console.error("예약 데이터를 가져오는 중 오류 발생:", error);
@@ -164,7 +172,6 @@ function List(props) {
   }, []);
 
   const handleCancelReservation = (roomName, date, clock) => {
-    // 예약 취소를 위한 API 요청을 보냅니다.
     const schoolNumber = localStorage.getItem("schoolnumber");
 
     axios
@@ -174,68 +181,102 @@ function List(props) {
       .then((response) => {
         console.log("예약이 취소되었습니다.");
 
-        // 선택한 예약 정보를 제외한 나머지 예약 정보만 유지하도록 업데이트합니다.
-        const updatedReservations = reservationData.filter((reservation) => {
+        const updatedReservations = currentDayReservations.filter((reservation) => {
           return !(
             reservation.room === roomName &&
             reservation.date === date &&
             reservation.clock_times.includes(clock)
           );
         });
-        setReservationData(updatedReservations);
+
+        setCurrentDayReservations(updatedReservations);
       })
       .catch((error) => {
         console.error("예약 취소 중 오류 발생:", error);
       });
   };
 
+  const loadAllReservations = () => {
+    setShowAllReservations(true);
+  };
+
   return (
     <div>
-      {reservationData.length === 0 ? (
+      {currentDayReservations.length === 0 ? (
         <CenteredContainer>
-        <LogoImage src={SchoolLogoImage} alt="School Logo" />
-        <CenteredText>
-          예약 목록이 없습니다.
-        </CenteredText>
-      </CenteredContainer>
+          <LogoImage src={SchoolLogoImage} alt="School Logo" />
+          <CenteredText>예약 목록이 없습니다.</CenteredText>
+        </CenteredContainer>
       ) : (
-        reservationData.map((reservation, index) => (
+        currentDayReservations.map((reservation, index) => (
           <ListContainer key={index}>
-            <BackgroundList>
-              <Info>
-                신청자:{" "}
-                {reservation.user
-                  ? reservation.user.schoolnumber
-                  : "데이터 없음"}{" "}
-                {reservation.user ? reservation.user.name : ""}
-                <br />
-                스터디룸: {reservation.room ? reservation.room : "데이터 없음"}
-                <br />
-                날짜: {reservation.date ? reservation.date : "데이터 없음"}{" "}
-                <br />
-                시간:{" "}
-                {reservation.clock_times
-                  ? reservation.clock_times.join(", ")
-                  : "데이터 없음"}
-              </Info>
-              <ButtonContainer>
-                <CancelButton
-                  onClick={() =>
-                    handleCancelReservation(
-                      reservation.room,
-                      reservation.date,
-                      reservation.clock_times[0]
-                    )
-                  }
-                >
-                  예약 취소
-                </CancelButton>
-              </ButtonContainer>
-            </BackgroundList>
-          </ListContainer>
+          <BackgroundList>
+            <Info>
+              신청자:{" "}
+              {reservation.user
+                ? reservation.user.schoolnumber
+                : "데이터 없음"}{" "}
+              {reservation.user ? reservation.user.name : ""}
+              <br />
+              스터디룸: {reservation.room ? reservation.room : "데이터 없음"}
+              <br />
+              날짜: {reservation.date ? reservation.date : "데이터 없음"}{" "}
+              <br />
+              시간:{" "}
+              {reservation.clock_times
+                ? reservation.clock_times.join(", ")
+                : "데이터 없음"}
+            </Info>
+            <ButtonContainer>
+              <CancelButton
+                onClick={() =>
+                  handleCancelReservation(
+                    reservation.room,
+                    reservation.date,
+                    reservation.clock_times[0]
+                  )
+                }
+              >
+                예약 취소
+              </CancelButton>
+            </ButtonContainer>
+          </BackgroundList>
+        </ListContainer>
         ))
       )}
+
+      {!showAllReservations && allReservations.length > currentDayReservations.length && (
         <CenteredContainer>
+          <Button onClick={loadAllReservations}>더보기</Button>
+        </CenteredContainer>
+      )}
+
+      {showAllReservations && (
+        allReservations.map((reservation, index) => (
+          <ListContainer key={index}>
+          <BackgroundList>
+            <Info>
+              신청자:{" "}
+              {reservation.user
+                ? reservation.user.schoolnumber
+                : "데이터 없음"}{" "}
+              {reservation.user ? reservation.user.name : ""}
+              <br />
+              스터디룸: {reservation.room ? reservation.room : "데이터 없음"}
+              <br />
+              날짜: {reservation.date ? reservation.date : "데이터 없음"}{" "}
+              <br />
+              시간:{" "}
+              {reservation.clock_times
+                ? reservation.clock_times.join(", ")
+                : "데이터 없음"}
+            </Info>
+          </BackgroundList>
+        </ListContainer>
+        ))
+      )}
+
+      <CenteredContainer>
         <Button onClick={goToMain}>예약하기</Button>
       </CenteredContainer>
     </div>
