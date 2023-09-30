@@ -15,6 +15,9 @@ const ModalWrapper = styled.div`
   align-items: center;
   z-index: 999;
 `;
+const Text = styled.h1`
+  text-align: center;
+`;
 
 const ModalContent = styled.div`
   background: #fff;
@@ -96,6 +99,8 @@ function CList(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reservationData, setReservationData] = useState(null); // 예약 데이터 상태 추가
   const schoolNumber = localStorage.getItem("schoolnumber");
+  const [Status, setStatus] = useState("");
+
   const handleClick = (reservation) => {
     // 클릭 시 모달 열기
     setIsModalOpen(true);
@@ -135,7 +140,16 @@ function CList(props) {
     axios
       .get(`https://geostudyroom.store/reservationadmin/C/${admindate}/`)
       .then((response) => {
-        setReservations(response.data);
+        if (response.status === 200) {
+          // API 요청이 성공한 경우에만 데이터 설정
+          setReservations(response.data);
+          setStatus("Ok");
+        } else {
+          // 예외 처리 또는 오류 메시지 표시
+          console.error("API 요청이 실패했습니다.");
+          setStatus("NoData");
+          console.log(Status);
+        }
       })
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);
@@ -146,52 +160,56 @@ function CList(props) {
 
   return (
     <div>
-      {reservations.map((reservation) => (
-        <ListContainer key={reservation.id}>
-          <BackgroundList>
-            <Info>
-              신청자:{" "}
-              {reservation.user ? reservation.user.name : "사용자 정보 없음"}{" "}
-              <br />
-              학번:{" "}
-              {reservation.user
-                ? reservation.user.schoolnumber
-                : "학번 정보 없음"}{" "}
-            </Info>
-            <Info>
-              날짜: {reservation.date ? reservation.date : "날짜 정보 없음"}{" "}
-              <br />
-              시간:{" "}
-              {reservation.clock_times
-                ? reservation.clock_times.join(", ")
-                : "시간 정보 없음"}
-            </Info>
-            <ButtonContainer>
-              <CancelButton onClick={() => handleClick(reservation)}>
-                예약 취소
-              </CancelButton>
-            </ButtonContainer>
-          </BackgroundList>
-          {isModalOpen && reservationData === reservation && (
-            <ModalWrapper>
-              <ModalContent>
-                <p>예약을 취소하시겠습니까?</p>
-                <ModalButton
-                  onClick={() =>
-                    handleCancelReservation(
-                      reservation.date,
-                      reservation.clock_times[0]
-                    )
-                  }
-                >
-                  확인
-                </ModalButton>
-                <ModalButton onClick={handleCloseModal}>취소</ModalButton>
-              </ModalContent>
-            </ModalWrapper>
-          )}
-        </ListContainer>
-      ))}
+      {Status === "NoData" ? (
+        <Info>선택된 날짜에 예약된 사용자가 없습니다.</Info>
+      ) : (
+        reservations.map((reservation) => (
+          <ListContainer key={reservation.id}>
+            <BackgroundList>
+              <Info>
+                신청자:{" "}
+                {reservation.user ? reservation.user.name : "사용자 정보 없음"}{" "}
+                <br />
+                학번:{" "}
+                {reservation.user
+                  ? reservation.user.schoolnumber
+                  : "학번 정보 없음"}{" "}
+              </Info>
+              <Info>
+                날짜: {reservation.date ? reservation.date : "날짜 정보 없음"}{" "}
+                <br />
+                시간:{" "}
+                {reservation.clock_times
+                  ? reservation.clock_times.join(", ")
+                  : "시간 정보 없음"}
+              </Info>
+              <ButtonContainer>
+                <CancelButton onClick={() => handleClick(reservation)}>
+                  예약 취소
+                </CancelButton>
+              </ButtonContainer>
+            </BackgroundList>
+            {isModalOpen && reservationData === reservation && (
+              <ModalWrapper>
+                <ModalContent>
+                  <p>예약을 취소하시겠습니까?</p>
+                  <ModalButton
+                    onClick={() =>
+                      handleCancelReservation(
+                        reservation.date,
+                        reservation.clock_times[0]
+                      )
+                    }
+                  >
+                    확인
+                  </ModalButton>
+                  <ModalButton onClick={handleCloseModal}>취소</ModalButton>
+                </ModalContent>
+              </ModalWrapper>
+            )}
+          </ListContainer>
+        ))
+      )}
     </div>
   );
 }
