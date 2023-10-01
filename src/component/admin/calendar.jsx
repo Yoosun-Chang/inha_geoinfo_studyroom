@@ -59,7 +59,6 @@ function Calendar() {
     // 클릭한 날짜를 localStorage에 저장 (선택적)
     localStorage.setItem("admindate", clickedDateString);
   };
-
   const applyStylesToClickedDate = () => {
     if (clickedDate) {
       const [clickedYear, clickedMonth, clickedDay] = clickedDate.split("-");
