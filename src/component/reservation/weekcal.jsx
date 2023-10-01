@@ -4,16 +4,15 @@ import "./weekcal.scss"; // 주어진 CSS 파일을 불러옵니다.
 function Weekcal({ onDateClick }) {
   const now = new Date();
   now.setHours(0, 0, 0, 0); // 현재 시간을 00:00:00으로 설정
-  const todayWeak = now.getDay(); // 오늘의 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
   const today = now.getDate(); // 오늘의 날짜
-  const lastday = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(); // 현재 월의 마지막 날짜
 
   // 시작 요일을 항상 월요일로 설정
   const startingDay = 1; // 월요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
 
-  // 오늘을 기준으로 해당 주의 첫 번째 날짜를 계산
+  // 현재 요일을 계산하고, 오늘을 기준으로 해당 주의 첫 번째 날짜를 계산
+  const currentDay = now.getDay(); // 현재 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+  const difference = (currentDay - startingDay + 7) % 7; // 현재 요일과 시작 요일의 차이 (0 ~ 6)
   const firstDateOfTheWeek = new Date(now);
-  const difference = todayWeak - startingDay;
   firstDateOfTheWeek.setDate(today - difference);
 
   // 해당 주의 마지막 날짜를 계산
