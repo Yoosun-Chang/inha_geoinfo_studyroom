@@ -67,7 +67,6 @@ function ConfirmButton() {
   if (month < 10) {
     month = `0${month}`;
   }
-  
 
   const date = `${year}-${month}-${day}`;
   const localTime = localStorage.getItem("Time");
@@ -78,39 +77,39 @@ function ConfirmButton() {
 
   const handleAgree = () => {
     setAgreed(!agreed);
-  
+
     if (!agreed) {
+      // 동의합니다 체크박스가 체크되었을 때 /confirm 경로로 이동
+      navigate(`/confirm/${schoolNumber}`);
+
       // Make the axios POST request here
       axios
         .post(`https://geostudyroom.store/reservationadd/${schoolNumber}/`, {
-          "room": Room,
-          "date": date,
-          "clock": JSON.parse(localTime) // localTime을 JSON 배열로 파싱
+          room: Room,
+          date: date,
+          clock: JSON.parse(localTime), // localTime을 JSON 배열로 파싱
         })
         .then((response) => {
           if (response.status === 201) {
             console.log("POST 요청 성공");
             console.log(response.data);
             console.log(localTime); // 요청이 성공한 후에 선택한 시간 찍
-          } else {
-            console.log("POST 요청 실패");
+          } else if (response.status === 204 || response.status === 205) {
+            console.log("이미 예약되어있음");
             navigate(`/confirmerror/${schoolNumber}`); // 에러 발생 시 이동
           }
         })
         .catch((error) => {
           console.error("POST 요청 에러:", error);
-  
+
           console.log({
             room: Room,
             date: date,
-            clock: JSON.parse(localTime) // localTime을 JSON 배열로 파싱
+            clock: JSON.parse(localTime), // localTime을 JSON 배열로 파싱
           });
-          
-          navigate(`/confirmerror/${schoolNumber}`); // 에러 발생 시 이동
         });
     }
   };
-  
 
   return (
     <>
@@ -120,7 +119,6 @@ function ConfirmButton() {
         </ConfirmButtonContainer>
       </CenteredContainer>
       {showPopup && (
-        
         <PopupContainer>
           <CenteredContainer>
             <h2>이용 규칙</h2>
@@ -153,6 +151,3 @@ function ConfirmButton() {
 }
 
 export default ConfirmButton;
-
-
-
