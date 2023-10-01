@@ -71,6 +71,7 @@ const Button = styled.button`
   border: none;
   margin-top: 7%;
   margin-left: 35%;
+  z-index: 1;
 `;
 
 const WaveContainer = styled.div`
