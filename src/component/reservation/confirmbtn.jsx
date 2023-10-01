@@ -95,7 +95,7 @@ function ConfirmButton() {
             console.log(response.data);
             console.log(localTime); // 요청이 성공한 후에 선택한 시간 찍
           } else if (response.status === 204 || response.status === 205) {
-            console.log("이미 예약되어있음");
+            console.log("예약실패");
             navigate(`/confirmerror/${schoolNumber}`); // 에러 발생 시 이동
           }
         })

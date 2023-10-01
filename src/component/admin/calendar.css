@@ -47,16 +47,17 @@ button {
   align-items: center;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  display: flex; /* 내부 컨텐츠를 가로로 정렬하기 위해 추가 */
 }
 
-button:hover {
-  background-color: white;
-  color: #0089ff;
+button span {
+  flex: 1; /* span 요소를 확장하여 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
 }
-
 button.clicked {
-  background-color: white !important;
+  background-color: rgb(255, 255, 255) !important;
   color: #0089ff !important;
+  text-align: center;
 }
 
 .button-clicked {
