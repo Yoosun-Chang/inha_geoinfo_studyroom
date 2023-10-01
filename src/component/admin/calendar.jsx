@@ -38,13 +38,24 @@ function Calendar() {
   const handleDateClick = (day, event) => {
     const button = event.target;
     const clickedDateString = `${nowYear}-${nowMon}-${day}`;
-
+  
     // 클릭한 날짜를 URL의 쿼리 매개변수로 저장
     navigate(`?date=${clickedDateString}`);
-
+  
     // 클릭한 날짜를 상태에 업데이트
     setClickedDate(clickedDateString);
-
+  
+    // 클릭한 버튼에 "clicked" 클래스 추가
+    button.classList.add("clicked");
+  
+    // 다른 버튼에 "clicked" 클래스 제거
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((otherButton) => {
+      if (otherButton !== button) {
+        otherButton.classList.remove("clicked");
+      }
+    });
+  
     // 클릭한 날짜를 localStorage에 저장 (선택적)
     localStorage.setItem("admindate", clickedDateString);
   };
