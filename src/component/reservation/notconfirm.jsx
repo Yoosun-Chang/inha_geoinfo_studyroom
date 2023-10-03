@@ -75,7 +75,8 @@ const NotConfirm = ({ reservationInfo }) => {
         <Text1>예약 실패</Text1>
         <p />
           <>
-            <Text2>이미 예약이 존재 혹은 하루 2시간 이상의 예약은 제한됩니다.</Text2>
+            <Text2>이미 예약이 존재하거나 <br/>
+              하루 2시간 이상의 예약은 제한됩니다.</Text2>
           </>
          
         <Button onClick={goToMain}>뒤로</Button>
