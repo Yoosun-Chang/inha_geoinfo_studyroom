@@ -8,8 +8,37 @@ const Container = styled.div`
   text-align: center;
 `;
 
+const CenteredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  margin: 30px;
+`;
+
+const Button = styled.button`
+  width: 150px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: #0089ff;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  user-select: none;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  line-height: 50px;
+  border: none;
+`;
+
 function Admin() {
+  const schoolNumber = localStorage.getItem("schoolnumber");
   const navigate = useNavigate();
+  const goToMain = () => {
+    navigate(`/reservation/${schoolNumber}`);
+  };
 
   // 페이지 로딩 시 로컬 스토리지에서 schoolNumber와 name 확인
   useEffect(() => {
@@ -28,6 +57,9 @@ function Admin() {
       <Container>
         <Roombtn />
       </Container>
+      <CenteredContainer>
+        <Button onClick={goToMain}>메인으로</Button>
+      </CenteredContainer>
     </div>
   );
 }
