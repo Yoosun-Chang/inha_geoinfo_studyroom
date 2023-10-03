@@ -1,19 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import bottomVideo from "./Bottom2.mp4";
-
-const ResponsiveVideo = styled.video`
-  max-width: 100%;
-  height: auto;
-  /* border: 10px solid white; */
-`;
+import bottomImage from "./Bottom.jpg"; // Replace with your image file path
 
 const CenteredContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
-  /* position: fixed; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -21,8 +14,11 @@ const CenteredContainer = styled.div`
   width: 100%;
   z-index: 100;
   height: 23vh;
-  /* margin-top: 80%; */
-  /* position: relative; */
+`;
+
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
 `;
 
 const Text = styled.div`
@@ -32,19 +28,17 @@ const Text = styled.div`
   font-weight: 500;
   line-height: normal;
   position: absolute;
-  color: white; /* 텍스트 색상 변경 */
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 1000; /* 적절한 z-index 값으로 변경 */
+  z-index: 1000;
 `;
 
 function Bottom() {
   return (
     <CenteredContainer>
-      <ResponsiveVideo autoPlay loop muted>
-        <source src={bottomVideo} type="video/mp4" />
-      </ResponsiveVideo>
+      <Image src={bottomImage} alt="Bottom Image" />
       <Text>
         Developed By 19 홍진욱, 20 장유선, 20 최효리
         <br />

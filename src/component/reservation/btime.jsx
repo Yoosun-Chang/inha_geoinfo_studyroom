@@ -59,6 +59,9 @@ function Btime() {
     margin: "1.25rem 1.25rem 0rem 1.25rem",
     border: "none",
     color: "white",
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "center", 
   };
 
   const BtnContainer = styled.div`
