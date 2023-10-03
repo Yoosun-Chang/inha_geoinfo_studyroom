@@ -71,7 +71,7 @@ const Button = styled.button`
   border: none;
   margin-top: 7%;
   margin-left: 35%;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const WaveContainer = styled.div`
@@ -158,6 +158,13 @@ function Inform() {
       })
       .catch((error) => {
         console.error("Axios 오류:", error);
+  
+        // 로그인 에러가 발생한 경우 SweetAlert2를 사용하여 "로그인 불가" 팝업을 띄웁니다.
+        Swal.fire({
+          title: "로그인 불가",
+          text: "로그인에 실패했습니다. 학번과 이름을 다시 확인해주세요.",
+          icon: "error",
+        });
       });
   };
 

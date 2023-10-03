@@ -111,6 +111,13 @@ const Info2 = styled.div`
   text-align: left !important;
 `;
 
+const ModalContainer = styled.div`
+  text-align: center;
+  display: flex; // 가로로 정렬을 위해 flex 사용
+  justify-content: center; // 가로로 가운데 정렬
+  align-items: center; // 세로로 가운데 정렬
+`
+
 function BList(props) {
   const admindate = localStorage.getItem("admindate");
   const adminRoom = "B";
@@ -213,6 +220,7 @@ function BList(props) {
               <ModalWrapper>
                 <ModalContent>
                   <p>예약을 취소하시겠습니까?</p>
+                  <ModalContainer>
                   <ModalButton
                     onClick={() =>
                       handleCancelReservation(
@@ -224,6 +232,7 @@ function BList(props) {
                     확인
                   </ModalButton>
                   <ModalButton onClick={handleCloseModal}>취소</ModalButton>
+                  </ModalContainer>
                 </ModalContent>
               </ModalWrapper>
             )}

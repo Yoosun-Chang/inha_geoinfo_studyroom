@@ -66,6 +66,8 @@ function Ctime() {
 
   const selectedButtonStyle = {
     background: "#0089FF",
+    cursor:  "pointer",
+    opacity: 0.5,
   };
 
   localStorage.setItem("Time", JSON.stringify(selectedTimes));
@@ -80,9 +82,11 @@ function Ctime() {
             key={index}
             style={{
               ...buttonStyle,
-              ...(selectedTimes.includes(time) ? selectedButtonStyle : {}),
+              ...(selectedTimes.includes(time) ? selectedButtonStyle : {
               cursor: timeData[time] ? "not-allowed" : "pointer",
               opacity: timeData[time] ? 0.5 : 1,
+              }),
+              background: timeData[time] ? "grey" :" #0089FF",
             }}
             onClick={() => handleTimeClick(time)}
             disabled={timeData[time]}
