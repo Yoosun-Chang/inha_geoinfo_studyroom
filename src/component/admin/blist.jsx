@@ -70,6 +70,7 @@ const Info = styled.div`
   text-align: left !important;
 `;
 
+
 const CancelButton = styled.button`
   width: 5rem;
   height: 1.5rem;
@@ -88,6 +89,26 @@ const ButtonContainer = styled.div`
   align-items: center;
   margin-right: 1rem;
   margin-top: -20px;
+`;
+
+const CenteredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  margin: 30px;
+`;
+
+const Info2 = styled.div`
+  color: #000;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 130%;
+  letter-spacing: 0.25px;
+  margin: 0px;
+  text-align: left !important;
 `;
 
 function BList(props) {
@@ -158,7 +179,9 @@ function BList(props) {
   return (
     <div>
       {Status === "NoData" ? (
-        <Info>선택된 날짜에 예약된 사용자가 없습니다.</Info>
+        <CenteredContainer>
+        <Info2>선택된 날짜에 예약된 사용자가 없습니다.</Info2>
+        </CenteredContainer>
       ) : (
         reservations.map((reservation) => (
           <ListContainer key={reservation.id}>
