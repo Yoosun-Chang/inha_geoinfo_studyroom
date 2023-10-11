@@ -124,28 +124,20 @@ function CList(props) {
   const [Status, setStatus] = useState("");
 
   const handleClick = (reservation) => {
-    // 클릭 시 모달 열기
     setIsModalOpen(true);
-    // 모달을 열 때 해당 예약 데이터를 설정
     setReservationData(reservation);
   };
 
   const handleCloseModal = () => {
-    // 모달 닫기
     setIsModalOpen(false);
   };
 
   const handleCancelReservation = (date, clock) => {
-    // 예약 취소를 위한 API 요청을 보냅니다.
-    const schoolNumber = localStorage.getItem("schoolnumber");
-
     axios
       .delete(`https://geostudyroom.store/reservationadmin/C/${date}/${clock}/`)
       .then((response) => {
         console.log("예약이 취소되었습니다.");
-        // 예약이 취소되면 모달 닫기
         setIsModalOpen(false);
-        // 예약 정보를 업데이트하여 삭제된 예약을 제외하고 보여줍니다.
         setReservations((prevReservations) =>
           prevReservations.filter(
             (reservation) =>
@@ -163,11 +155,9 @@ function CList(props) {
       .get(`https://geostudyroom.store/reservationadmin/C/${admindate}/`)
       .then((response) => {
         if (response.status === 200) {
-          // API 요청이 성공한 경우에만 데이터 설정
           setReservations(response.data);
           setStatus("Ok");
         } else {
-          // 예외 처리 또는 오류 메시지 표시
           console.error("API 요청이 실패했습니다.");
           setStatus("NoData");
           console.log(Status);

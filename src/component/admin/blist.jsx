@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// 모달 스타일
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -113,9 +112,9 @@ const Info2 = styled.div`
 
 const ModalContainer = styled.div`
   text-align: center;
-  display: flex; // 가로로 정렬을 위해 flex 사용
-  justify-content: center; // 가로로 가운데 정렬
-  align-items: center; // 세로로 가운데 정렬
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
 `
 
 function BList(props) {
@@ -123,33 +122,25 @@ function BList(props) {
   const adminRoom = "B";
   const [reservations, setReservations] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reservationData, setReservationData] = useState(null); // 예약 데이터 상태 추가
-  const schoolNumber = localStorage.getItem("schoolnumber");
+  const [reservationData, setReservationData] = useState(null); 
   const [selectedDate, setSelectedDate] = useState(null);
   const [Status, setStatus] = useState("");
   const handleClick = (reservation) => {
-    // 클릭 시 모달 열기
     setIsModalOpen(true);
-    // 모달을 열 때 해당 예약 데이터를 설정
     setReservationData(reservation);
   };
 
   const handleCloseModal = () => {
-    // 모달 닫기
     setIsModalOpen(false);
   };
 
   const handleCancelReservation = (date, clock) => {
-    // 예약 취소를 위한 API 요청을 보냅니다.
-    const schoolNumber = localStorage.getItem("schoolnumber");
 
     axios
       .delete(`https://geostudyroom.store/reservationadmin/B/${date}/${clock}/`)
       .then((response) => {
         console.log("예약이 취소되었습니다.");
-        // 예약이 취소되면 모달 닫기
         setIsModalOpen(false);
-        // 예약 정보를 업데이트하여 삭제된 예약을 제외하고 보여줍니다.
         setReservations((prevReservations) =>
           prevReservations.filter(
             (reservation) =>
@@ -167,11 +158,9 @@ function BList(props) {
       .get(`https://geostudyroom.store/reservationadmin/B/${admindate}/`)
       .then((response) => {
         if (response.status === 200) {
-          // API 요청이 성공한 경우에만 데이터 설정
           setReservations(response.data);
           setStatus("Ok");
         } else {
-          // 예외 처리 또는 오류 메시지 표시
           console.error("API 요청이 실패했습니다.");
           setStatus("NoData");
           console.log(Status);

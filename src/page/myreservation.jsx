@@ -14,9 +14,9 @@ const Container = styled.div`
 const WaveContainer = styled.div`
   flex-grow: 1;
   display: flex;
-  justify-content: flex-end; /* Wave 컴포넌트를 오른쪽에 정렬합니다. */
-  align-items: flex-end; /* Wave 컴포넌트를 아래에 정렬합니다. */
-  position: relative; /* 위치를 상대적으로 설정합니다. */
+  justify-content: flex-end; 
+  align-items: flex-end; 
+  position: relative; 
 `;
 
 function Myreservation() {

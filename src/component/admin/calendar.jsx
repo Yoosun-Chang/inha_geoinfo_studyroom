@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import "./calendar.css"; // CSS 파일 import 추가
+import "./calendar.css"; 
 
 function Calendar() {
   const [date, setDate] = useState(new Date());
@@ -15,10 +15,7 @@ function Calendar() {
     const newDate = new Date(date);
     newDate.setMonth(newDate.getMonth() - 1);
     setDate(newDate);
-
-    // 월 변경 시 클릭한 날짜 정보 초기화
     setClickedDate(null);
-
     const admindate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}`;
     localStorage.setItem("admindate", admindate);
   };
@@ -27,10 +24,7 @@ function Calendar() {
     const newDate = new Date(date);
     newDate.setMonth(newDate.getMonth() + 1);
     setDate(newDate);
-
-    // 월 변경 시 클릭한 날짜 정보 초기화
     setClickedDate(null);
-
     const admindate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}`;
     localStorage.setItem("admindate", admindate);
   };
@@ -39,16 +33,10 @@ function Calendar() {
     const button = event.target;
     const clickedDateString = `${nowYear}-${nowMon}-${day}`;
   
-    // 클릭한 날짜를 URL의 쿼리 매개변수로 저장
     navigate(`?date=${clickedDateString}`);
-  
-    // 클릭한 날짜를 상태에 업데이트
     setClickedDate(clickedDateString);
-  
-    // 클릭한 버튼에 "clicked" 클래스 추가
     button.classList.add("clicked");
   
-    // 다른 버튼에 "clicked" 클래스 제거
     const buttons = document.querySelectorAll("button");
     buttons.forEach((otherButton) => {
       if (otherButton !== button) {
@@ -56,7 +44,6 @@ function Calendar() {
       }
     });
   
-    // 클릭한 날짜를 localStorage에 저장 (선택적)
     localStorage.setItem("admindate", clickedDateString);
   };
   const applyStylesToClickedDate = () => {
@@ -89,11 +76,7 @@ function Calendar() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const clickedDateString = queryParams.get("date");
-
-    // 클릭한 날짜를 상태에 업데이트
     setClickedDate(clickedDateString);
-
-    // 클릭한 날짜를 localStorage에 저장 (선택적)
     localStorage.setItem("admindate", clickedDateString);
   }, [location.search]);
 

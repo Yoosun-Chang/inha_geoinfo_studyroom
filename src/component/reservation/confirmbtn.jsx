@@ -82,12 +82,11 @@ function ConfirmButton() {
       // 동의합니다 체크박스가 체크되었을 때 /confirm 경로로 이동
       navigate(`/confirm/${schoolNumber}`);
 
-      // Make the axios POST request here
       axios
         .post(`https://geostudyroom.store/reservationadd/${schoolNumber}/`, {
           room: Room,
           date: date,
-          clock: JSON.parse(localTime), // localTime을 JSON 배열로 파싱
+          clock: JSON.parse(localTime), 
         })
         .then((response) => {
           if (response.status === 201) {
@@ -105,7 +104,7 @@ function ConfirmButton() {
           console.log({
             room: Room,
             date: date,
-            clock: JSON.parse(localTime), // localTime을 JSON 배열로 파싱
+            clock: JSON.parse(localTime), 
           });
         });
     }

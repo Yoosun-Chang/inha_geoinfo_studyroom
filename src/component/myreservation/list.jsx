@@ -4,39 +4,6 @@ import styled from "styled-components";
 import axios from "axios";
 import SchoolLogoImage from './SchoolLogo.png';
 
-// 모달 스타일
-const ModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-`;
-
-const ModalContent = styled.div`
-  background: #fff;
-  color: #000; /* 글자 색상을 설정합니다. */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-`;
-
-const ModalButton = styled.button`
-  background-color: #00b0ff;
-  color: black; /* 버튼의 텍스트 컬러를 설정합니다. */
-  font-size: smaller;
-  font-weight: bold;
-  margin-left: 10px;
-  width: 66px;
-  height: 24px;
-  border-radius: 10px;
-`;
 
 const BackgroundList = styled.div`
   width: 21.875rem;
@@ -156,7 +123,6 @@ function List(props) {
         .then((response) => {
           const reservations = response.data;
           
-          // Filter current day reservations
           const currentDate = new Date().toISOString().split("T")[0];
           const currentDayReservations = reservations.filter(
             (reservation) => reservation.date === currentDate

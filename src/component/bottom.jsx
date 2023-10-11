@@ -29,13 +29,13 @@ const Text = styled.div`
   font-weight: 500;
   line-height: normal;
   position: absolute;
-  color: white; /* 텍스트 색상 변경 */
-  left: 10px; /* 텍스트 위치 조정 */
-  top: 10px; /* 텍스트 위치 조정 */
+  color: white; 
+  left: 10px; 
+  top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 1000; /* 적절한 z-index 값으로 변경 */
+  z-index: 1000;
 `;
 
 function Bottom() {

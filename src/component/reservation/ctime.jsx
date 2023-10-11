@@ -6,8 +6,6 @@ import axios from "axios";
 function Ctime() {
   const [selectedTimes, setSelectedTimes] = useState([]);
   const [timeData, setTimeData] = useState({});
-  const schoolNumber = localStorage.getItem("schoolnumber");
-  const Room = localStorage.getItem("Room");
   const year = localStorage.getItem("Year");
   let month = localStorage.getItem("Month");
   const day = localStorage.getItem("Day");
@@ -17,13 +15,12 @@ function Ctime() {
     month = `0${month}`;
   }
   
- // Year, Month, Day를 하나의 날짜 문자열로 합치기
+ // Year, Month, Day를 하나의 날짜 문자열로 합침
  const date = `${year}-${month}-${day}`;
  console.log(date);
  localStorage.setItem("admindate", date);
 
   useEffect(() => {
-    // Axios를 사용하여 API에서 데이터 가져오기
     axios.get(`https://geostudyroom.store/reservationtable/C/${date}/`)
       .then((response) => {
         setTimeData(response.data.time);
@@ -34,9 +31,8 @@ function Ctime() {
   }, [date]);
 
   const handleTimeClick = (time) => {
-    // 시간 슬롯이 선택 가능한지 확인 (true로 표시되지 않았는지)
+    // 시간 선택 가능한지 확인
     if (!timeData[time]) {
-      // 선택 상태 전환
       if (selectedTimes.includes(time)) {
         setSelectedTimes(selectedTimes.filter((t) => t !== time));
       } else {
