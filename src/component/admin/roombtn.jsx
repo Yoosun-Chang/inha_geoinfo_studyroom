@@ -4,35 +4,29 @@ import CList from "./clist.jsx";
 import { useNavigate } from "react-router-dom";
 
 function CRoomBtn() {
-  const schoolNumber = localStorage.getItem("schoolnumber");
-  // Button state management
   const [isBClicked, setIsBClicked] = useState(false);
   const [isCClicked, setIsCClicked] = useState(false);
   const [Room, setRoom] = useState("");
-  const navigate = useNavigate();
-  // Click handler for B룸 버튼
+  //const navigate = useNavigate();
+
   const handleBClick = async () => {
     setRoom("B");
     setIsBClicked(true);
     setIsCClicked(false);
-    // 라우팅이 완료될 때까지 대기한 후에 화면을 업데이트합니다.
     console.log(Room);
     localStorage.setItem("adminRoom", "B");
     // await navigate(`/reservation/${schoolNumber}/B`);
   };
 
-  // Click handler for C룸 버튼
   const handleCClick = async () => {
     setRoom("C");
     setIsCClicked(true);
     setIsBClicked(false);
     localStorage.setItem("adminRoom", "C");
     console.log(Room);
-    // 라우팅이 완료될 때까지 대기한 후에 화면을 업데이트합니다.
     // await navigate(`/reservation/${schoolNumber}/C`);
   };
 
-  // Button styles
   const buttonStyle = {
     width: "8.6875rem",
     height: "2.8125rem",
@@ -47,7 +41,6 @@ function CRoomBtn() {
     display: "inline-block",
   };
 
-  // 색상을 선택된 버튼에 따라 조절
   const bButtonStyle = isBClicked
     ? { ...buttonStyle, background: "#0089FF" }
     : buttonStyle;
@@ -64,7 +57,6 @@ function CRoomBtn() {
         C룸
       </button>
 
-      {/* B룸 버튼을 클릭했을 때 btime 컴포넌트를 표시 */}
       {isBClicked && <BList />}
       {isCClicked && <CList />}
     </div>

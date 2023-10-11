@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Top from "../top";
 import Wave from "../Wave";
-import axios from "axios";
+
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
-  height: 70vh; /* 뷰포트 높이를 100%로 설정하여 페이지 중앙에 위치하도록 합니다. */
+  justify-content: center; 
+  align-items: center; 
+  height: 70vh; 
 `;
 
 const Text1 = styled.div`
@@ -54,19 +54,10 @@ const Button = styled.button`
 const NotConfirm = ({ reservationInfo }) => {
   const navigate = useNavigate();
   const schoolNumber = localStorage.getItem("schoolnumber");
-  const admindate = localStorage.getItem("admindate");
-  const adminRoom = localStorage.getItem("Room");
-  const time = localStorage.getItem("time");
-  const Name = localStorage.getItem("Name");
-  // 예약 정보를 받아온다고 가정 (reservationInfo 객체에 예약자, 날짜, 시간 정보 포함)
-  //const { name, date, time } = reservationInfo;
-  const [User, setUser] = useState([]);
-  // 메인 페이지로 이동하는 함수
   const goToMain = () => {
     navigate(`/reservation/${schoolNumber}`); // 메인 페이지 경로로 이동
   };
-  const [reservationData, setReservationData] = useState([]);
-  const [reservations, setReservations] = useState([]);
+
 
   return (
     <div>

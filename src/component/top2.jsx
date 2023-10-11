@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import TopImage from "./Top.jpg"; // 이미지 파일 경로를 적절히 수정하세요
+import TopImage from "./Top.jpg";
 import { Link } from "react-router-dom";
 
-// 반응형 이미지 스타일 컴포넌트
 const ResponsiveImage = styled.img`
   max-width: 100%;
   height: auto;

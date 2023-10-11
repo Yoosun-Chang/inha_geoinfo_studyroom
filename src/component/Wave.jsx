@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import bottomImage from "./Bottom.jpg"; // Replace with your image file path
+import bottomImage from "./Bottom.jpg";
 
 const CenteredContainer = styled.div`
   display: flex;

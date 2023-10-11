@@ -45,14 +45,14 @@ function Reservation() {
   };
 
   useEffect(() => {
-    // 현재 시간을 얻습니다.
+    // 현재 시간
     const now = new Date();
     const currentHour = now.getHours();
 
-    // 현재 시간이 21시 이후인지 확인합니다.
+    // 현재 시간이 21시 이후인지 확인
     const isAfter21Hours = currentHour >= 21;
 
-    // 21시 이후이면 내일 버튼을 활성화합니다.
+    // 21시 이후이면 내일 버튼을 활성화
     setIsTomorrowButtonEnabled(isAfter21Hours);
   }, []);
 

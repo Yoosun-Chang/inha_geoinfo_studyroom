@@ -82,7 +82,7 @@ const Menu4 = styled(Link)`
 function Sidebar({ isOpen, setIsOpen }) {
   const outside = useRef();
   const [userData, setUserData] = useState({ schoolnumber: "", name: "" });
-  const [isAdmin, setIsAdmin] = useState(false); // Add state for admin status
+  const [isAdmin, setIsAdmin] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -95,13 +95,12 @@ function Sidebar({ isOpen, setIsOpen }) {
   useEffect(() => {
     const schoolNumber = localStorage.getItem("schoolnumber");
     if (schoolNumber) {
-      // 예약 데이터를 가져오는 Axios 요청
       axios
         .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
         .then((response) => {
           if (response.status === 204) {
-            console.log("예약목록 없음"); // 데이터 없음을 로그에 출력
-            return; // 데이터가 없으므로 더 이상 처리하지 않음
+            console.log("예약목록 없음"); 
+            return; 
           }
   
           const userDataFromResponse = response.data[0].user;
@@ -133,9 +132,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       .then((response) => {
         if (response.status === 200) {
           console.log("사용자가 성공적으로 로그아웃되었습니다.");
-          // 로컬 스토리지에서 사용자 정보 제거
-          //localStorage.removeItem("schoolnumber");
-          localStorage.clear(); // 모든 데이터 삭제
+          localStorage.clear();
           setUserData({ schoolnumber: "", name: "" });
           alert("로그아웃 되었습니다.");
         } else {
@@ -145,7 +142,6 @@ function Sidebar({ isOpen, setIsOpen }) {
       })
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);
-        // 로그아웃 오류를 처리할 수 있습니다.
       });
   };
 

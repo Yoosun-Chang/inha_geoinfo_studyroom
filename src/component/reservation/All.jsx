@@ -12,7 +12,7 @@ function All() {
   const time = localStorage.getItem("Time");
   const day = localStorage.getItem("Day");
 
-  // Year, Month, Day를 하나의 날짜 문자열로 합치기
+  // Year, Month, Day를 하나의 날짜 문자열로 합침
   const date = `${year}-${month}-${day}`;
   console.log(date);
   console.log(Room);

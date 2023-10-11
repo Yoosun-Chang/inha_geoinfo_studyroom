@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./weekcal.scss"; // 주어진 CSS 파일을 불러옵니다.
+import "./weekcal.scss"; 
 
 function Weekcal({ onDateClick }) {
   const now = new Date();
@@ -7,11 +7,11 @@ function Weekcal({ onDateClick }) {
   const today = now.getDate(); // 오늘의 날짜
 
   // 시작 요일을 항상 월요일로 설정
-  const startingDay = 1; // 월요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+  const startingDay = 1; // 월요일 
 
   // 현재 요일을 계산하고, 오늘을 기준으로 해당 주의 첫 번째 날짜를 계산
-  const currentDay = now.getDay(); // 현재 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
-  const difference = (currentDay - startingDay + 7) % 7; // 현재 요일과 시작 요일의 차이 (0 ~ 6)
+  const currentDay = now.getDay(); // 현재 요일 
+  const difference = (currentDay - startingDay + 7) % 7; // 현재 요일과 시작 요일의 차이 
   const firstDateOfTheWeek = new Date(now);
   firstDateOfTheWeek.setDate(today - difference);
 
@@ -25,12 +25,12 @@ function Weekcal({ onDateClick }) {
     const date = new Date(firstDateOfTheWeek);
     date.setDate(firstDateOfTheWeek.getDate() + i);
     CalendarObject.push({
-      weak: date.toLocaleDateString("en-US", { weekday: "short" }), // 요일을 "Mon", "Tue", ... 형식으로 표시
+      weak: date.toLocaleDateString("en-US", { weekday: "short" }), //"Mon", "Tue", ...
       day: date.getDate(),
     });
   }
 
-  // 선택한 날짜와 요일을 상태로 관리합니다.
+
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateClick = (day, weak) => {
@@ -38,10 +38,8 @@ function Weekcal({ onDateClick }) {
       now.getMonth() + 1
     }월 ${day}일 (${weak})`;
 
-    // 클릭 상태를 토글합니다.
     setClicked(!clicked);
 
-    // 상위 컴포넌트로 클릭된 날짜를 전달
     onDateClick(selectedDateString);
     setSelectedDate(selectedDateString);
     localStorage.setItem("Year", now.getFullYear());

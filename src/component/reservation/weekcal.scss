@@ -1,5 +1,3 @@
-/* WeekCalendar.scss */
-
 /* 공통 스타일 */
 $deepblue: #156fb9;
 $darkblue: rgb(12, 86, 129);
@@ -16,7 +14,6 @@ $darkblue: rgb(12, 86, 129);
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: space-between;
   text-align: center;
   position:sticky;
   top:0;
@@ -40,13 +37,12 @@ $darkblue: rgb(12, 86, 129);
 /* 달력 요일과 날짜 스타일 */
 .DayList {
   display: flex;
-  //flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
 }
 
 .daylistSector {
-  width: 1rem; /* 100% / 7 요일 수에 따라 나눈 값 (간격 포함) */
+  width: 1rem; 
   height: 4rem;
   display: flex;
   flex-direction: column;
@@ -54,7 +50,6 @@ $darkblue: rgb(12, 86, 129);
   justify-content: center;
   cursor: pointer;
   border-radius: 2.5rem;
-  //padding: .625rem;
   margin: 0.5rem;
   background-color: rgba(255, 255, 255, 0.2); /* 달력 셀 배경 색상 */
 }
@@ -93,14 +88,12 @@ $darkblue: rgb(12, 86, 129);
   font-weight: bold;
 }
 
-/* 버튼 스타일 */
 .CalendarIconContainer {
   display: none;
 }
 
-/* 모든 화면 크기에 대한 스타일 */
 .daylistSector {
-  width: calc(100% / 7); /* 100% / 7 요일 수에 따라 나눈 값 */
+  width: calc(100% / 7);
 }
 
 .CalendarIconContainer {

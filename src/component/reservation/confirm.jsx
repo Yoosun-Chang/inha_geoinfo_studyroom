@@ -55,18 +55,14 @@ const Confirm = ({ reservationInfo }) => {
   const navigate = useNavigate();
   const schoolNumber = localStorage.getItem("schoolnumber");
   const admindate = localStorage.getItem("admindate");
-  const adminRoom = localStorage.getItem("Room");
   const time = localStorage.getItem("time");
   const Name = localStorage.getItem("Name");
-  // 예약 정보를 받아온다고 가정 (reservationInfo 객체에 예약자, 날짜, 시간 정보 포함)
-  //const { name, date, time } = reservationInfo;
   const [User, setUser] = useState([]);
-  // 메인 페이지로 이동하는 함수
+
   const goToMain = () => {
     navigate(`/reservation/${schoolNumber}`); // 메인 페이지 경로로 이동
   };
-  const [reservationData, setReservationData] = useState([]);
-  const [reservations, setReservations] = useState([]);
+
   useEffect(() => {
     axios
       .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
