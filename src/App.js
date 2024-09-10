@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/main" element={<Inform />} />
+        <Route path="/" element={<Inform />} />
         <Route path="/reservation/:id" element={<Reservation />} />
         <Route path="/reservation/:id/:Room" element={<Reservation />} />
         <Route path="/confirm/:id" element={<Confirm />} />
