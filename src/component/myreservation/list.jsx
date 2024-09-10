@@ -119,7 +119,7 @@ function List(props) {
     
     if (schoolNumber) {
       axios
-        .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
+        .get(`https://geostudyroom2.store/myreservation/${schoolNumber}/`)
         .then((response) => {
           const reservations = response.data;
           
@@ -142,7 +142,7 @@ function List(props) {
 
     axios
       .delete(
-        `https://geostudyroom.store/reservationdelete/${schoolNumber}/${roomName}/${date}/${clock}`
+        `https://geostudyroom2.store/reservationdelete/${schoolNumber}/${roomName}/${date}/${clock}`
       )
       .then((response) => {
         console.log("예약이 취소되었습니다.");

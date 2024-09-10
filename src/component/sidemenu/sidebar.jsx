@@ -96,7 +96,7 @@ function Sidebar({ isOpen, setIsOpen }) {
     const schoolNumber = localStorage.getItem("schoolnumber");
     if (schoolNumber) {
       axios
-        .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
+        .get(`https://geostudyroom2.store/myreservation/${schoolNumber}/`)
         .then((response) => {
           if (response.status === 204) {
             console.log("예약목록 없음"); 
@@ -128,7 +128,7 @@ function Sidebar({ isOpen, setIsOpen }) {
   };
   const handleLogout = () => {
     axios
-      .get(`https://geostudyroom.store/logout/`)
+      .get(`https://geostudyroom2.store/logout/`)
       .then((response) => {
         if (response.status === 200) {
           console.log("사용자가 성공적으로 로그아웃되었습니다.");
@@ -147,7 +147,7 @@ function Sidebar({ isOpen, setIsOpen }) {
 
   useEffect(() => {
     axios
-      .get(`https://geostudyroom.store/userlist/`, {
+      .get(`https://geostudyroom2.store/userlist/`, {
         headers: {
           accept: "application/json",
           "X-CSRFToken": "sf1hfhsyjC3CHnwTBLxQabolXApdCNWImnaVRIqdAb7y7X96KpPKJJcneBAlczGZ",

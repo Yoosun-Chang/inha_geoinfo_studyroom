@@ -21,7 +21,7 @@ function Ctime() {
  localStorage.setItem("admindate", date);
 
   useEffect(() => {
-    axios.get(`https://geostudyroom.store/reservationtable/C/${date}/`)
+    axios.get(`https://geostudyroom2.store/reservationtable/C/${date}/`)
       .then((response) => {
         setTimeData(response.data.time);
       })

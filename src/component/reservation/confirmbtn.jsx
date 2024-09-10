@@ -83,7 +83,7 @@ function ConfirmButton() {
       navigate(`/confirm/${schoolNumber}`);
 
       axios
-        .post(`https://geostudyroom.store/reservationadd/${schoolNumber}/`, {
+        .post(`https://geostudyroom2.store/reservationadd/${schoolNumber}/`, {
           room: Room,
           date: date,
           clock: JSON.parse(localTime), 

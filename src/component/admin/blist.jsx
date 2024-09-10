@@ -137,7 +137,7 @@ function BList(props) {
   const handleCancelReservation = (date, clock) => {
 
     axios
-      .delete(`https://geostudyroom.store/reservationadmin/B/${date}/${clock}/`)
+      .delete(`https://geostudyroom2.store/reservationadmin/B/${date}/${clock}/`)
       .then((response) => {
         console.log("예약이 취소되었습니다.");
         setIsModalOpen(false);
@@ -155,7 +155,7 @@ function BList(props) {
 
   useEffect(() => {
     axios
-      .get(`https://geostudyroom.store/reservationadmin/B/${admindate}/`)
+      .get(`https://geostudyroom2.store/reservationadmin/B/${admindate}/`)
       .then((response) => {
         if (response.status === 200) {
           setReservations(response.data);

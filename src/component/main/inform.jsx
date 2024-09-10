@@ -131,7 +131,7 @@ function Inform() {
 
   const HandleUser = () => {
     axios
-      .post(`https://geostudyroom.store/login/`, {
+      .post(`https://geostudyroom2.store/login/`, {
         schoolnumber: id,
         password: Name,
       })

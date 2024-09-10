@@ -65,7 +65,7 @@ const Confirm = ({ reservationInfo }) => {
 
   useEffect(() => {
     axios
-      .get(`https://geostudyroom.store/myreservation/${schoolNumber}/`)
+      .get(`https://geostudyroom2.store/myreservation/${schoolNumber}/`)
       .then((response) => {
         setUser(response.data);
       })

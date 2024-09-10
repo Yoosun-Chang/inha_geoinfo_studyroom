@@ -23,7 +23,7 @@ function Btime() {
  localStorage.setItem("admindate", date);
 
   useEffect(() => {
-    axios.get(`https://geostudyroom.store/reservationtable/B/${date}/`)
+    axios.get(`https://geostudyroom2.store/reservationtable/B/${date}/`)
       .then((response) => {
         setTimeData(response.data.time);
       })
