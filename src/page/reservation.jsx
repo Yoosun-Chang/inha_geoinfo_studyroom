@@ -36,7 +36,7 @@ function Reservation() {
     // schoolNumber와 name이 없을 때 /main 페이지로 이동
     // 왜 푸시 안되니 푸시 푸시 해줘
     if (!schoolNumber || !name) {
-      navigate("/");
+      navigate("/main");
     }
   }, [navigate]);
 

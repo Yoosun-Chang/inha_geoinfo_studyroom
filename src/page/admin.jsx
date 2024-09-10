@@ -47,7 +47,7 @@ function Admin() {
 
     // schoolNumber와 name이 없을 때 /main 페이지로 이동
     if (!schoolNumber || !name) {
-      navigate("/");
+      navigate("/main");
     }
   }, [navigate]);
 
